@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import './App.css';
 
-import { increment } from './actions';
+import { increment, decrement } from './actions';
 import type { ActionType } from './actionTypes';
 import type { IncState } from './storeTypes';
 
@@ -16,6 +16,7 @@ import type { IncState } from './storeTypes';
 type Props = {
   red1: IncState,
   increment: () => ActionType,
+  decrement: () => ActionType,
 };
 
 class App extends Component<Props> {
@@ -35,13 +36,14 @@ class App extends Component<Props> {
         </p>
         {this.props.red1.a}
         <hr />
-        <button onClick={this.props.increment}>PLUS</button>
+        <button onClick={this.props.increment}>PLUS</button><button onClick={this.props.decrement}>MINUS</button>
       </div>
     );
   }
 }
 
 export default connect(state => ({red1: state.red1}), {
-  increment: increment
+  increment: increment,
+  decrement: decrement,
 })(App);
 
