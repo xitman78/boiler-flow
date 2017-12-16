@@ -8,13 +8,14 @@ import { connect } from 'react-redux';
 
 import './App.css';
 
-import type {State} from './Store';
-
+import { increment } from './actions';
+import type { ActionType } from './actionTypes';
+import type { IncState } from './storeTypes';
 
 
 type Props = {
-  bar?: string,
-  red1: State,
+  red1: IncState,
+  increment: () => ActionType,
 };
 
 class App extends Component<Props> {
@@ -33,10 +34,14 @@ class App extends Component<Props> {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         {this.props.red1.a}
+        <hr />
+        <button onClick={this.props.increment}>PLUS</button>
       </div>
     );
   }
 }
 
-export default connect(state => ({red1: state.red1}))(App);
+export default connect(state => ({red1: state.red1}), {
+  increment: increment
+})(App);
 

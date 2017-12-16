@@ -3,17 +3,18 @@
 import { combineReducers } from 'redux';
 import { createStore } from 'redux';
 
-type Action = {
-  +type: string,
-};
+import type { ActionType } from './actionTypes';
+import type { IncState } from './storeTypes';
 
-export type State = {
-  +a: number
-};
+function red1(state: IncState = {a: 1}, action: ActionType): IncState {
 
-function red1(state: State = {a: 1}, action: Action): State {
   console.log(action, state);
-  //switch()
+
+  switch(action.type) {
+    case 'INCREMENT':
+      return {a: state.a + 1};
+  }
+
   return state;
 }
 
