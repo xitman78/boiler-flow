@@ -1,6 +1,6 @@
 // @flow
-import type { ActionType } from 'actionTypes';
-import actions from 'constants/actionConstants';
+import type { ActionType } from '../../actions/actionTypes';
+import actions from '../../constants/actionConstants';
 
 export function increment(): ActionType {
   return { type: actions.ACTION_INCREMENT };
