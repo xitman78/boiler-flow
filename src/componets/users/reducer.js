@@ -7,6 +7,7 @@ import actions from "../../constants/actionConstants";
 const defaultState = {
   count: 0,
   list: [],
+  editUser: undefined,
 };
 
 export function users(state: UsersState = defaultState, action: UsersActionType): UsersState {
@@ -16,10 +17,16 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
   switch(action.type) {
 
     case actions.ACTION_LOADING_USERS:
-      return {count: 0, list: []};
+      return {...state, count: 0, list: []};
 
     case actions.ACTION_LOAD_USERS_SUCCESS:
-      return {count: action.users.length, list: action.users };
+      return {...state, count: action.payload.length, list: action.payload};
+
+    case actions.ACTION_LOADING_USER:
+      return {...state, editUser: undefined};
+
+    case actions.ACTION_LOAD_USER_SUCCESS:
+      return {...state, editUser: action.payload};
 
     default:
       return state;

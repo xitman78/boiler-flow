@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {getUsers} from "./actions";
+import {getUser} from "./actions";
 
 import type {ActionType} from "../../actions/actionTypes";
 import type {UsersState, User} from "../../store/storeTypes";
@@ -9,20 +9,21 @@ import type {UsersState, User} from "../../store/storeTypes";
 import './list.css';
 
 type Props = {
-  users: UsersState,
+  user: ?User,
   getUser: () => ActionType,
 };
 
-class UsersList extends Component<Props> {
+class UserEdit extends Component<Props> {
 
   componentWillMount() {
-    this.props.getUsers();
+    this.userId = this.props.match.params.id;
+    this.props.getUser(this.userId);
   }
 
   render() {
 
     return <div className="users-list-container">
-      {this.props.users.list.map((user: User) => <div key={user._id}><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></div>)}
+      {this.props.user && this.props.user.firstName}
       </div>;
   }
 
@@ -31,8 +32,8 @@ class UsersList extends Component<Props> {
 
 export default connect(
   state => ({
-    users: state.users
+    user: state.users.editUser
   }),
   {
-    getUsers: getUsers,
-  })(UsersList);
+    getUser: getUser,
+  })(UserEdit);

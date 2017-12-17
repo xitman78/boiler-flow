@@ -4,7 +4,7 @@ export type ActionType = {
 
 export type UsersActionType = {
   +type: string,
-  +users: ?any[],
+  +payload: any,
 };
 
 // export type ActionType = SimpleAction | UsersAction

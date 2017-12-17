@@ -5,10 +5,10 @@ export type CounterState = {
 };
 
 export type User = {
-  username: string,
-  email: string,
+  _id: string,
   firstName: string,
   lastName: string,
+  email: string,
 };
 
 export type UsersState = {
