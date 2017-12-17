@@ -2,13 +2,13 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {decrement, increment} from "../actions";
+import {decrement, increment} from "./actions";
 
-import type {ActionType} from "../actionTypes";
-import type {IncState} from "../storeTypes";
+import type {ActionType} from "../../actions/actionTypes";
+import type {CounterState} from "../../store/storeTypes";
 
 type Props = {
-  red1: IncState,
+  counter: CounterState,
   increment: () => ActionType,
   decrement: () => ActionType,
 };
@@ -22,7 +22,7 @@ class Counter extends Component<Props> {
 
   render() {
     return <div>
-      {this.props.red1.a}
+      {this.props.counter.a}
       <hr />
       <button onClick={this.onClick}>PLUS</button><button onClick={this.props.decrement}>MINUS</button>
     </div>;
@@ -33,7 +33,7 @@ class Counter extends Component<Props> {
 
 export default connect(
   state => ({
-    red1: state.red1
+    counter: state.counter
   }),
   {
     increment: increment,

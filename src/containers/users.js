@@ -3,14 +3,13 @@
 import React, {Component} from "react";
 import Counter from '../componets/counter/counter';
 
-class Home extends Component<{}> {
+class Users extends Component<{}> {
 
   render() {
     return <div>
-      <h3>Counter</h3>
-      <Counter />
+      <h3>Users</h3>
     </div>;
   }
 }
 
-export default Home;
+export default Users;
