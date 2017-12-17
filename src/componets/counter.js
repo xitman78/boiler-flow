@@ -3,6 +3,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {decrement, increment} from "../actions";
+
 import type {ActionType} from "../actionTypes";
 import type {IncState} from "../storeTypes";
 
