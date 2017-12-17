@@ -12,7 +12,7 @@ type Props = {
 
 class FormInput extends PureComponent<Props> {
 
-  onChange = (event: SyntheticInputEvent<>, value: string) => {
+  onChange = (event: SyntheticInputEvent<>) => {
     this.props.onChange(event.target.value, this.props.property);
   };
 
