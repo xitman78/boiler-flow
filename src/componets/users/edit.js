@@ -8,6 +8,8 @@ import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import MenuItem from 'material-ui/Menu/MenuItem';
+import Icon from 'material-ui/Icon';
 //import FormInput from '../form/input';
 
 import type {ActionType} from "../../actions/actionTypes";
@@ -38,19 +40,27 @@ const styles = theme => ({
     marginRight: 16,
   },
   menu: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
     width: 200,
   },
 });
 
+
+const genders = [
+  {value: 'm', label: 'Male'},
+  {value: 'f', label: 'Female'}
+];
 const validateRequired = val => (val && val.trim().length > 0) ? undefined : 'Required';
 
-const TextFieldAdapter = ({ input, meta, ...rest }) => {
+const TextFieldAdapter = ({ input, meta, children, ...rest }) => {
   return <TextField
     {...input}
     {...rest}
     onChange={event => input.onChange(event.target.value)}
-    { ... meta.invalid ? {helperText: meta.error, error: true} : {}}
-  />
+    { ... meta.invalid ? {helperText: meta.error, error: true} : {}} >
+    {children}
+  </TextField>
 };
 
 type Props = {
@@ -88,10 +98,12 @@ class UserEdit extends PureComponent<Props> {
             firstName: this.props.user.firstName,
             lastName: this.props.user.lastName,
             email: this.props.user.email,
+            gender: this.props.user.gender,
           }}
           render={({ handleSubmit, reset, submitting, pristine, values }) => {
             return <Paper className={classes.root} elevation={4}>
-              <Typography type="headline" component="h3">
+              <Icon color="primary" style={{ fontSize: 40 }}>account_box</Icon>
+              <Typography type="headline" component="h3" color={'primary'}>
                 Edit User
               </Typography>
               <form onSubmit={handleSubmit} className={classes.container}>
@@ -127,6 +139,22 @@ class UserEdit extends PureComponent<Props> {
                     label="E-mail"
                     margin="normal"
                   />
+                </div>
+                <div>
+                  <Field
+                    className={classes.menu}
+                    required
+                    select
+                    component={TextFieldAdapter}
+                    name="gender"
+                    label="Gender"
+                    margin="normal">
+                    {genders.map(option => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Field>
                 </div>
                 <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
                   Submit
