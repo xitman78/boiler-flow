@@ -5,7 +5,9 @@ import TextField from 'material-ui/TextField';
 import { Form, Field } from 'react-final-form';
 import {getUser, updateUser} from "./actions";
 import Button from 'material-ui/Button';
-
+import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 //import FormInput from '../form/input';
 
 import type {ActionType} from "../../actions/actionTypes";
@@ -13,14 +15,43 @@ import type {UsersState, User} from "../../store/storeTypes";
 
 import './list.css';
 
-const TextFieldAdapter = ({ input, meta, ...rest }) => (
-  <TextField
+const styles = theme => ({
+  root: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginTop: theme.spacing.unit * 3,
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    maxWidth: 700,
+  }),
+  container: {
+    display: 'block',
+    // flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 400,
+  },
+  button: {
+    marginTop: 16,
+    marginRight: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
+
+const validateRequired = val => (val && val.trim().length > 0) ? undefined : 'Required';
+
+const TextFieldAdapter = ({ input, meta, ...rest }) => {
+  return <TextField
     {...input}
     {...rest}
-    onChange={(event, value) => input.onChange(value)}
-    errorText={meta.touched ? meta.error : ''}
+    onChange={event => input.onChange(event.target.value)}
+    { ... meta.invalid ? {helperText: meta.error, error: true} : {}}
   />
-);
+};
 
 type Props = {
   user: ?User,
@@ -29,6 +60,11 @@ type Props = {
 
 class UserEdit extends PureComponent<Props> {
 
+  constructor() {
+    super();
+    this.state = {name: 'Hello World!'};
+  }
+
   componentWillMount() {
 
     this.userId = this.props.match.params.id;
@@ -36,13 +72,15 @@ class UserEdit extends PureComponent<Props> {
   }
 
   onSubmit = values => {
-    console.log('Submit', values);
     this.props.updateUser(this.userId, values);
   };
 
   render() {
 
-    return <div className="users-list-container">🏁
+    const { classes } = this.props;
+
+    return <div className="users-list-container">
+
       {this.props.user &&
         <Form
           onSubmit={this.onSubmit}
@@ -51,37 +89,53 @@ class UserEdit extends PureComponent<Props> {
             lastName: this.props.user.lastName,
             email: this.props.user.email,
           }}
-          render={({ handleSubmit, reset, submitting, pristine, values }) => (
-            <form onSubmit={handleSubmit}>
-              <div>
-                <Field
-                  name="firstName"
-                  component={TextFieldAdapter}
-                  type="text"
-                  hintText="First Name"
-                  floatingLabelText="First Name"
-                />
-              </div>
-              <div>
-                <Field
-                  name="lastName"
-                  component={TextFieldAdapter}
-                  hintText="Last Name"
-                  floatingLabelText="Last Name"
-                />
-              </div>
-              <div>
-                <Field
-                  name="email"
-                  component={TextFieldAdapter}
-                  hintText="First Name"
-                  floatingLabelText="First Name"
-                />
-              </div>
-              <Button raised color="primary" type="submit" disabled={submitting || pristine}>
-                Submit
-              </Button>
-            </form>)} />
+          render={({ handleSubmit, reset, submitting, pristine, values }) => {
+            return <Paper className={classes.root} elevation={4}>
+              <Typography type="headline" component="h3">
+                Edit User
+              </Typography>
+              <form onSubmit={handleSubmit} className={classes.container}>
+                <div>
+                  <Field
+                    className={classes.textField}
+                    required
+                    validate={validateRequired}
+                    name="firstName"
+                    component={TextFieldAdapter}
+                    label="First Name"
+                    margin="normal"
+                  />
+                </div>
+                <div>
+                  <Field
+                    className={classes.textField}
+                    required
+                    validate={validateRequired}
+                    name="lastName"
+                    component={TextFieldAdapter}
+                    label="Last Name"
+                    margin="normal"
+                  />
+                </div>
+                <div>
+                  <Field
+                    className={classes.textField}
+                    required
+                    validate={validateRequired}
+                    name="email"
+                    component={TextFieldAdapter}
+                    label="E-mail"
+                    margin="normal"
+                  />
+                </div>
+                <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
+                  Submit
+                </Button>
+                <Button className={classes.button} raised color="accent" onClick={reset} disabled={submitting || pristine}>
+                  Reset
+                </Button>
+              </form>
+            </Paper>}} />
       }
       </div>;
   }
@@ -95,12 +149,8 @@ export default connect(
   {
     getUser: getUser,
     updateUser: updateUser,
-  })(UserEdit);
+  })(withStyles(styles)(UserEdit));
 
-
-/* <FormInput label="First name:" value={this.state.user.firstName} property="firstName" onChange={this.onInputChange} />
-          <FormInput label="Last name:" value={this.state.user.lastName} property="lastName" onChange={this.onInputChange} />
-          <FormInput label="E-mail:" value={this.state.user.email} property="email" onChange={this.onInputChange} />*/
 
 
 
