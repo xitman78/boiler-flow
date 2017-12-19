@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 // import {Link} from "react-router-dom";
-import TextField from 'material-ui/TextField';
+
 import { Form, Field } from 'react-final-form';
 import {getUser, updateUser} from "./actions";
 import Button from 'material-ui/Button';
@@ -10,7 +10,8 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Icon from 'material-ui/Icon';
-//import FormInput from '../form/input';
+import TextFieldAdapter from '../form/textFieldAdapter';
+import {validateRequired} from '../../helpers/validators';
 
 import type {ActionType} from "../../actions/actionTypes";
 import type {UsersState, User} from "../../store/storeTypes";
@@ -51,17 +52,7 @@ const genders = [
   {value: 'm', label: 'Male'},
   {value: 'f', label: 'Female'}
 ];
-const validateRequired = val => (val && val.trim().length > 0) ? undefined : 'Required';
 
-const TextFieldAdapter = ({ input, meta, children, ...rest }) => {
-  return <TextField
-    {...input}
-    {...rest}
-    onChange={event => input.onChange(event.target.value)}
-    { ... meta.invalid ? {helperText: meta.error, error: true} : {}} >
-    {children}
-  </TextField>
-};
 
 type Props = {
   user: ?User,
@@ -102,7 +93,7 @@ class UserEdit extends PureComponent<Props> {
           }}
           render={({ handleSubmit, reset, submitting, pristine, values }) => {
             return <Paper className={classes.root} elevation={4}>
-              <Icon color="primary" style={{ fontSize: 40 }}>account_box</Icon>
+              <Icon color="primary" style={{ fontSize: 50 }}>account_box</Icon>
               <Typography type="headline" component="h3" color={'primary'}>
                 Edit User
               </Typography>

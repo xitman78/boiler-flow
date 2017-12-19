@@ -10,6 +10,7 @@ import withRoot from './componets/withRoot';
 
 import Home from './containers/home';
 import Users from './containers/users';
+import Login from './containers/login';
 import logo from './logo.svg';
 import './App.css';
 import store, {history} from "./store/Store";
@@ -35,10 +36,11 @@ class App extends Component<{}> {
               <h1 className="App-title">Welcome to React</h1>
             </header>
             <p className="App-intro">
-              <Link to="/">Home</Link>&nbsp;<Link to="/users">Users</Link>
+              <Link to="/">Home</Link>&nbsp;<Link to="/users">Users</Link>&nbsp;<Link to="/login">Login</Link>
             </p>
             <Route exact path="/" component={Home}/>
             <Route path="/users" component={Users}/>
+            <Route path="/login" component={Login}/>
           </div>
         </Router>
       </Provider>
