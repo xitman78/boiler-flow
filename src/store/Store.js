@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 
 import {counter} from '../componets/counter/reducer';
 import {users} from '../componets/users/reducer';
+import {auth} from '../componets/loginForm/reducer';
 
 export const history = createHistory();
 
@@ -20,6 +21,7 @@ const middleware = [
 const combinedReducers = combineReducers({
   counter,
   users,
+  auth,
   router: routerReducer
 }, applyMiddleware(middleware));
 

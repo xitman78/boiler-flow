@@ -15,3 +15,7 @@ export type UsersState = {
   count: number,
   list: User[],
 };
+
+export type AuthState = {
+  authUser: ?{},
+};

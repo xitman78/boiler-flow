@@ -35,13 +35,11 @@ export function loginRequest(email, password, captcha): ThunkAction {
       })
       .then(json => {
 
-        console.log("json", json);
-
         if (json.status !== 'ok') throw Error(json);
 
         console.log('ACTION_LOGIN_SUCCESS', json);
         localStorage.setItem('token', json.result.token);
-        dispatch({ type: actions.ACTION_LOGIN_SUCCESS, payload: json });
+        dispatch({ type: actions.ACTION_LOGIN_SUCCESS, payload: json.result.user });
         dispatch(push('/'));
       })
       .catch(function(error) {
