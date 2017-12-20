@@ -28,6 +28,9 @@ export function auth(state: AuthState = defaultState, action: UsersActionType): 
       localStorage.removeItem('token');
       return {authUser: null};
 
+    case actions.ACTION_AUTH_CONFIRMED:
+      return {authUser: action.payload};
+
     default:
       return state;
 

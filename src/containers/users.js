@@ -2,6 +2,7 @@
 
 import React, {Component} from "react";
 import {Route} from 'react-router-dom';
+import withAuth from '../componets/hoc/withAuth';
 import UsersList from '../componets/users/list';
 import UserEdit from '../componets/users/edit';
 
@@ -15,4 +16,4 @@ class Users extends Component<{}> {
   }
 }
 
-export default Users;
+export default withAuth(Users);
