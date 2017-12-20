@@ -1,3 +1,4 @@
+// @flow
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 // import {Link} from "react-router-dom";
@@ -37,9 +38,12 @@ const styles = theme => ({
   },
 });
 
+type Props = {
+  loginRequest: (email: string, password: string, captcha: string) => mixed,
+  classes: {root: string, container: string, textField: string, button: string},
+};
 
-
-class LoginForm extends PureComponent<{}> {
+class LoginForm extends PureComponent<Props> {
 
   onSubmit = values => {
     this.props.loginRequest(values.email, values.password, "dfsdgsdfgsdfgsdfgsdfgdfsgsgfd");
