@@ -3,15 +3,16 @@ import {push} from 'react-router-redux';
 
 import type { ActionType } from '../../actions/actionTypes';
 import actions from '../../constants/actionConstants';
+import type {StoreType} from "../../store/storeTypes";
 
 type Dispatch = (action: ActionType | ThunkAction | PromiseAction) => any;
-type GetState = () => UsersState;
+type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<ActionType>;
 
-export function loginRequest(email, password, captcha): ThunkAction {
+export function loginRequest(email: string, password: string, captcha: string): ThunkAction {
 
-  return (dispatch, getState) => {
+  return (dispatch) => {
 
     dispatch({ type: actions.ACTION_LOGIN_STARTED });
 
@@ -51,7 +52,7 @@ export function loginRequest(email, password, captcha): ThunkAction {
 
 export function checkAuth(): ThunkAction {
 
-  return (dispatch, getState) => {
+  return (dispatch) => {
 
     let token = localStorage.getItem('token');
 

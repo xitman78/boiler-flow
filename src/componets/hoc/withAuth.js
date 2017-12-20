@@ -5,9 +5,9 @@ import {connect} from 'react-redux';
 import {checkAuth} from "../loginForm/actions";
 
 
-export default function withAuth(Component: React.Component) {
+export default function withAuth(Component: React.ComponentType<any>): React.ComponentType<any> {
 
-  class _withAuth extends React.PureComponent {
+  class _withAuth extends React.PureComponent<{authUser: ?{}, checkAuth: Function}> {
 
     componentWillMount() {
       if (!this.props.authUser) this.props.checkAuth();

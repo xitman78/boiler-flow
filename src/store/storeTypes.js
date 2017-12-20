@@ -9,13 +9,20 @@ export type User = {
   firstName: string,
   lastName: string,
   email: string,
+  createdAt: string,
 };
 
 export type UsersState = {
   count: number,
   list: User[],
+  editUser: ?User,
 };
 
 export type AuthState = {
   authUser: ?{},
+};
+
+export type StoreType = {
+  users: UsersState,
+  auth: AuthState,
 };

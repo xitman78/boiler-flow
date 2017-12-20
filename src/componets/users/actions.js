@@ -2,21 +2,27 @@
 import {push} from 'react-router-redux';
 
 import type { ActionType } from '../../actions/actionTypes';
-import type { UsersState} from "../../store/storeTypes";
+import type {StoreType, User} from "../../store/storeTypes";
 import actions from '../../constants/actionConstants';
 
 type Dispatch = (action: ActionType | ThunkAction | PromiseAction) => any;
-type GetState = () => UsersState;
+type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<ActionType>;
 
 export function getUsers(): ThunkAction {
 
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState) => {
 
     dispatch({ type: actions.ACTION_LOADING_USERS });
 
-    let token = localStorage.getItem('token');
+    let token: ?string = localStorage.getItem('token');
+
+    if (!token) {
+      dispatch({type: actions.ACTION_LOGOUT});
+      dispatch(push('/login'));
+      return;
+    }
 
     let request = new Request('http://localhost:3231/api/v1/users?page=1&per_page=30',
       {
@@ -46,11 +52,17 @@ export function getUsers(): ThunkAction {
 
 export function getUser(id: string): ThunkAction {
 
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState) => {
 
     dispatch({ type: actions.ACTION_LOADING_USER });
 
-    let token = localStorage.getItem('token');
+    let token: ?string = localStorage.getItem('token');
+
+    if (!token) {
+      dispatch({type: actions.ACTION_LOGOUT});
+      dispatch(push('/login'));
+      return;
+    }
 
     let request = new Request('http://localhost:3231/api/v1/users/' + id,
       {
@@ -78,9 +90,9 @@ export function getUser(id: string): ThunkAction {
   }
 }
 
-export function updateUser(id: string, values): ThunkAction {
+export function updateUser(id: string, values: User): ThunkAction {
 
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState: GetState) => {
 
     console.log('getState', getState());
 
@@ -94,7 +106,13 @@ export function updateUser(id: string, values): ThunkAction {
 
     dispatch({ type: actions.ACTION_SAVING_USER });
 
-    let token = localStorage.getItem('token');
+    let token: ?string = localStorage.getItem('token');
+
+    if (!token) {
+      dispatch({type: actions.ACTION_LOGOUT});
+      dispatch(push('/login'));
+      return;
+    }
 
     let request = new Request('http://localhost:3231/api/v1/users/' + id,
       {
