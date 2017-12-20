@@ -1,4 +1,6 @@
-import React, {PureComponent} from "react";
+// @flow
+
+import React, {Component} from "react";
 import {connect} from "react-redux";
 // import {Link} from "react-router-dom";
 
@@ -56,24 +58,21 @@ const genders = [
 
 type Props = {
   user: ?User,
-  getUser: () => ActionType,
+  getUser: (id: string) => ActionType,
+  updateUser: (id: string, values: User) => ActionType,
+  classes: {root: string, container: string, textField: string, button: string, menu: string},
+  match: {params: {id: string}},
 };
 
-class UserEdit extends PureComponent<Props> {
-
-  constructor() {
-    super();
-    this.state = {name: 'Hello World!'};
-  }
+class UserEdit extends Component<Props, {userId: string}> {
 
   componentWillMount() {
-
-    this.userId = this.props.match.params.id;
-    this.props.getUser(this.userId);
+    this.setState({userId: this.props.match.params.id});
+    this.props.getUser(this.props.match.params.id);
   }
 
   onSubmit = values => {
-    this.props.updateUser(this.userId, values);
+    this.props.updateUser(this.state.userId, values);
   };
 
   render() {
