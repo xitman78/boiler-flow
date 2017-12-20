@@ -28,6 +28,9 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
     case actions.ACTION_LOAD_USER_SUCCESS:
       return {...state, editUser: action.payload};
 
+    case actions.ACTION_LOGOUT:
+      return Object.assign({}, defaultState);
+
     default:
       return state;
 

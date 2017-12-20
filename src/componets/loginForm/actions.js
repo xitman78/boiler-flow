@@ -94,3 +94,18 @@ export function checkAuth(): ThunkAction {
       });
   }
 }
+
+export function logoutAction(): ThunkAction {
+
+  return (dispatch) => {
+
+    localStorage.removeItem('token');
+
+    console.log('-------------ACTION_LOGOUT---------------')
+
+    dispatch({ type: actions.ACTION_LOGOUT });
+
+    dispatch(push('/login'));
+
+  }
+}
