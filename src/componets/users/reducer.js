@@ -1,6 +1,6 @@
 // @flow
 
-import type {UsersActionType} from "../../actions/actionTypes";
+import type {PayloadActionType} from "../../actions/actionTypes";
 import type {UsersState} from "../../store/storeTypes";
 import actions from "../../constants/actionConstants";
 
@@ -10,7 +10,7 @@ const defaultState = {
   editUser: undefined,
 };
 
-export function users(state: UsersState = defaultState, action: UsersActionType): UsersState {
+export function users(state: UsersState = defaultState, action: PayloadActionType): UsersState {
 
   console.log(action, state);
 

@@ -1,4 +1,5 @@
 // @flow
+
 import type { ActionType } from '../../actions/actionTypes';
 import actions from '../../constants/actionConstants';
 

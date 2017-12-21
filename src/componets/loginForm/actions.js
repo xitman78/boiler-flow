@@ -40,11 +40,12 @@ export function loginRequest(email: string, password: string, captcha: string): 
 
         console.log('ACTION_LOGIN_SUCCESS', json);
         localStorage.setItem('token', json.result.token);
-        dispatch({ type: actions.ACTION_LOGIN_SUCCESS, payload: json.result.user });
+        dispatch({ type: actions.ACTION_LOGIN_SUCCESS, payload: {user: json.result.user, token: json.result.token} });
         dispatch(push('/'));
       })
       .catch(function(error) {
         console.log('Login Error:', error);
+        localStorage.removeItem('token');
         dispatch({ type: actions.ACTION_LOGIN_ERROR, payload: error });
       });
   }
@@ -87,9 +88,10 @@ export function checkAuth(): ThunkAction {
         if (json.status !== 'ok') throw Error(json);
 
         console.log('ACTION_AUTH_CONFIRMED', json);
-        dispatch({ type: actions.ACTION_AUTH_CONFIRMED, payload: json.result.user });
+        dispatch({ type: actions.ACTION_AUTH_CONFIRMED, payload: {user: json.result.user, token: token} });
       })
       .catch(function(error) {
+        localStorage.removeItem('token');
         dispatch({ type: actions.ACTION_AUTH_REJECTED, payload: error });
         dispatch(push('/login'));
       });
@@ -101,8 +103,6 @@ export function logoutAction(): ThunkAction {
   return (dispatch) => {
 
     localStorage.removeItem('token');
-
-    console.log('-------------ACTION_LOGOUT---------------')
 
     dispatch({ type: actions.ACTION_LOGOUT });
 

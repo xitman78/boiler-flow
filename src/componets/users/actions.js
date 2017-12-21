@@ -16,7 +16,7 @@ export function getUsers(): ThunkAction {
 
     dispatch({ type: actions.ACTION_LOADING_USERS });
 
-    let token: ?string = localStorage.getItem('token');
+    let token = getState().auth.token;
 
     if (!token) {
       dispatch({type: actions.ACTION_LOGOUT});
@@ -56,7 +56,7 @@ export function getUser(id: string): ThunkAction {
 
     dispatch({ type: actions.ACTION_LOADING_USER });
 
-    let token: ?string = localStorage.getItem('token');
+    let token = getState().auth.token;
 
     if (!token) {
       dispatch({type: actions.ACTION_LOGOUT});
@@ -94,8 +94,6 @@ export function updateUser(id: string, values: User): ThunkAction {
 
   return (dispatch: Dispatch, getState: GetState) => {
 
-    console.log('getState', getState());
-
     let userOrg = getState().users.editUser;
 
     let userData = Object.assign({}, userOrg, values);
@@ -106,7 +104,7 @@ export function updateUser(id: string, values: User): ThunkAction {
 
     dispatch({ type: actions.ACTION_SAVING_USER });
 
-    let token: ?string = localStorage.getItem('token');
+    let token = getState().auth.token;
 
     if (!token) {
       dispatch({type: actions.ACTION_LOGOUT});

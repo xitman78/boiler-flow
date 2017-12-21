@@ -21,6 +21,7 @@ export type UsersState = {
 
 export type AuthState = {
   authUser: ?{},
+  token: ?string,
 };
 
 export type StoreType = {
