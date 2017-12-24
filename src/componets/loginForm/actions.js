@@ -1,12 +1,11 @@
 // @flow
 import {push} from 'react-router-redux';
 
-import type {AuthActionType, SimpleActionType} from '../../actions/actionTypes';
+import type {AuthActionType} from '../../actions/actionTypes';
 import actions from '../../constants/actionConstants';
 import type {StoreType, User} from "../../store/storeTypes";
 
 type Dispatch = (action: AuthActionType | ThunkAction | PromiseAction) => any;
-type SimpleDispatch = (action: SimpleActionType) => any;
 type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<AuthActionType>;
@@ -51,7 +50,13 @@ export function loginRequest(email: string, password: string, captcha: string): 
         if(json.result.token) {
           localStorage.setItem('token', json.result.token);
           dispatch({ type: actions.ACTION_LOGIN_SUCCESS, user: json.result.user, token: json.result.token });
-          dispatch(push('/'));
+          let savedUrl: ?string = localStorage.getItem('afterLoginRedirect');
+          if (savedUrl) {
+            dispatch(push(savedUrl));
+            localStorage.removeItem('afterLoginRedirect');
+          } else {
+            dispatch(push('/'));
+          }
         } else {
           throw new Error('Token not found in response!');
         }
@@ -66,15 +71,17 @@ export function loginRequest(email: string, password: string, captcha: string): 
 
 export function checkAuth(): ThunkAction {
 
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
 
     let token: ?string = localStorage.getItem('token');
 
     if (!token) {
       /**
-       ** Token not found - go to login page
+       ** Token not found
        **/
-      dispatch(push('/login'));
+      // dispatch(push('/login'));
+      console.log('Token fot found!!!');
+      dispatch({type: actions.ACTION_AUTH_TOKEN_NOT_FOUND});
       return;
     }
 
@@ -108,6 +115,14 @@ export function checkAuth(): ThunkAction {
         dispatch({ type: actions.ACTION_AUTH_REJECTED, error: error });
         dispatch(push('/login'));
       });
+  }
+}
+
+export function redirectLogin() {
+  return (dispatch: Dispatch) => {
+    let currentUrl = window.location.pathname;
+    localStorage.setItem('afterLoginRedirect', currentUrl);
+    dispatch(push('/login'));
   }
 }
 

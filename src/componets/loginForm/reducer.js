@@ -30,6 +30,9 @@ export function auth(state: AuthState = defaultState, action: AuthActionType): A
     case actions.ACTION_AUTH_CONFIRMED:
       return {authUser: action.user, token: action.token};
 
+    case actions.ACTION_AUTH_TOKEN_NOT_FOUND:
+      return {authUser: null, token: null};
+
     default:
       return state;
 

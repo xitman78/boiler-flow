@@ -4,21 +4,19 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {checkAuth} from "../loginForm/actions";
 
+import type {User} from '../../store/storeTypes';
+
 
 export default function withAuth(Component: React.ComponentType<any>): React.ComponentType<any> {
 
-  class _withAuth extends React.PureComponent<{authUser: ?{}, checkAuth: Function}> {
+  class WithAuth extends React.Component<{authUser: ?User, checkAuth: Function}> {
 
     componentWillMount() {
       if (!this.props.authUser) this.props.checkAuth();
     }
 
     render() {
-      if (this.props.authUser) {
-        return <Component authUser={this.props.authUser} />;
-      } else {
-        return null;
-      }
+      return <Component authUser={this.props.authUser} />;
     }
   }
 
@@ -27,6 +25,6 @@ export default function withAuth(Component: React.ComponentType<any>): React.Com
     }),
     {
       checkAuth: checkAuth,
-    })(_withAuth)
+    })(WithAuth)
 
 }

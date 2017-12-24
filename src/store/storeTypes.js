@@ -20,7 +20,7 @@ export type UsersState = {
 };
 
 export type AuthState = {
-  authUser: ?{},
+  authUser: ?User,
   token: ?string,
 };
 
