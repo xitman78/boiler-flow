@@ -22,6 +22,7 @@ export type UsersState = {
 export type AuthState = {
   authUser: ?User,
   token: ?string,
+  authChecked: boolean
 };
 
 export type StoreType = {

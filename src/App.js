@@ -7,7 +7,7 @@ import {Route, Router, Switch, Link} from 'react-router-dom';
 import 'typeface-roboto';
 import { withStyles } from 'material-ui/styles';
 import withRoot from './componets/withRoot';
-import withAuth from './componets/hoc/withAuth';
+import withCheckAuth from './componets/hoc/withCheckAuth';
 
 import Home from './containers/home';
 import Users from './containers/users';
@@ -25,7 +25,7 @@ const styles = {
   },
 };
 
-let WithAuth = () => (
+let WithCheckAuth = () => (
   <Router history={history}>
     <div className="App">
       <header className="App-header">
@@ -41,7 +41,7 @@ let WithAuth = () => (
   </Router>
 );
 
-WithAuth = withAuth(WithAuth);
+WithCheckAuth = withCheckAuth(WithCheckAuth);
 
 
 class App extends Component<{}> {
@@ -50,7 +50,7 @@ class App extends Component<{}> {
 
     return (
       <Provider store={store}>
-        <WithAuth />
+        <WithCheckAuth />
       </Provider>
     );
   }

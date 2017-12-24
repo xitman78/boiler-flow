@@ -26,7 +26,7 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
       return {...state, editUser: undefined};
 
     case actions.ACTION_LOAD_USER_SUCCESS:
-      return {...state, editUser: action.editUser, diff: "dsfasdf"};
+      return {...state, editUser: action.editUser};
 
     case actions.ACTION_LOGOUT:
       return Object.assign({}, defaultState);

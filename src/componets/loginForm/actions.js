@@ -79,7 +79,6 @@ export function checkAuth(): ThunkAction {
       /**
        ** Token not found
        **/
-      // dispatch(push('/login'));
       console.log('Token fot found!!!');
       dispatch({type: actions.ACTION_AUTH_TOKEN_NOT_FOUND});
       return;

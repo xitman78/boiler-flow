@@ -7,6 +7,7 @@ import actions from "../../constants/actionConstants";
 const defaultState = {
   authUser: null,
   token: null,
+  authChecked: false,
 };
 
 export function auth(state: AuthState = defaultState, action: AuthActionType): AuthState {
@@ -16,22 +17,22 @@ export function auth(state: AuthState = defaultState, action: AuthActionType): A
   switch(action.type) {
 
     case actions.ACTION_LOGIN_STARTED:
-      return {authUser: null, token: null};
+      return {authUser: null, token: null, authChecked: true};
 
     case actions.ACTION_LOGIN_SUCCESS:
-      return {authUser: action.user, token: action.token};
+      return {authUser: action.user, token: action.token, authChecked: true};
 
     case actions.ACTION_LOGIN_ERROR:
-      return {authUser: null, token: null};
+      return {authUser: null, token: null, authChecked: true};
 
     case actions.ACTION_LOGOUT:
-      return {authUser: null, token: null};
+      return {authUser: null, token: null, authChecked: true};
 
     case actions.ACTION_AUTH_CONFIRMED:
-      return {authUser: action.user, token: action.token};
+      return {authUser: action.user, token: action.token, authChecked: true};
 
     case actions.ACTION_AUTH_TOKEN_NOT_FOUND:
-      return {authUser: null, token: null};
+      return {authUser: null, token: null, authChecked: true};
 
     default:
       return state;
