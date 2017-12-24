@@ -15,8 +15,8 @@ export type User = {
 
 export type UsersState = {
   count: number,
-  list: User[],
-  editUser: ?User,
+  list?: User[],
+  editUser?: User,
 };
 
 export type AuthState = {

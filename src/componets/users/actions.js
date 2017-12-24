@@ -1,14 +1,14 @@
 // @flow
 import {push} from 'react-router-redux';
 
-import type { ActionType } from '../../actions/actionTypes';
+import type {UsersActionType} from '../../actions/actionTypes';
 import type {StoreType, User} from "../../store/storeTypes";
 import actions from '../../constants/actionConstants';
 
-type Dispatch = (action: ActionType | ThunkAction | PromiseAction) => any;
+type Dispatch = (action: UsersActionType) => any;
 type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-type PromiseAction = Promise<ActionType>;
+type PromiseAction = Promise<UsersActionType>;
 
 export function getUsers(): ThunkAction {
 
@@ -42,7 +42,7 @@ export function getUsers(): ThunkAction {
       })
       .then(json => {
         console.log(json.users);
-        dispatch({ type: actions.ACTION_LOAD_USERS_SUCCESS, payload: json.users });
+        dispatch({ type: actions.ACTION_LOAD_USERS_SUCCESS, users: json.users });
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);
@@ -82,7 +82,7 @@ export function getUser(id: string): ThunkAction {
       })
       .then(json => {
         console.log(json.user);
-        dispatch({ type: actions.ACTION_LOAD_USER_SUCCESS, payload: json.user });
+        dispatch({ type: actions.ACTION_LOAD_USER_SUCCESS, editUser: json.user });
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);
@@ -131,9 +131,9 @@ export function updateUser(id: string, values: User): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then(json => {
+      .then((json: User) => {
         console.log(json);
-        dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, payload: json });
+        dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
         dispatch(push('/users'));
       })
       .catch(function(error) {

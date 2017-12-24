@@ -1,12 +1,12 @@
 // @flow
 
-import type { ActionType } from '../../actions/actionTypes';
+import type { SimpleActionType } from '../../actions/actionTypes';
 import actions from '../../constants/actionConstants';
 
-export function increment(): ActionType {
+export function increment(): SimpleActionType {
   return { type: actions.ACTION_INCREMENT };
 }
 
-export function decrement(): ActionType {
+export function decrement(): SimpleActionType {
   return { type: actions.ACTION_DECREMENT };
 }

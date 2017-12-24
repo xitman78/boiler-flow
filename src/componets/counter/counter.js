@@ -4,13 +4,13 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {decrement, increment} from "./actions";
 
-import type {ActionType} from "../../actions/actionTypes";
+import type {SimpleActionType} from "../../actions/actionTypes";
 import type {CounterState} from "../../store/storeTypes";
 
 type Props = {
   counter: CounterState,
-  increment: () => ActionType,
-  decrement: () => ActionType,
+  increment: () => SimpleActionType,
+  decrement: () => SimpleActionType,
 };
 
 class Counter extends Component<Props> {

@@ -15,7 +15,7 @@ import Icon from 'material-ui/Icon';
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
-import type {ActionType} from "../../actions/actionTypes";
+import type {UsersActionType} from "../../actions/actionTypes";
 import type {UsersState, User} from "../../store/storeTypes";
 
 import './list.css';
@@ -58,8 +58,8 @@ const genders = [
 
 type Props = {
   user: ?User,
-  getUser: (id: string) => ActionType,
-  updateUser: (id: string, values: User) => ActionType,
+  getUser: (id: string) => UsersActionType,
+  updateUser: (id: string, values: User) => UsersActionType,
   classes: {root: string, container: string, textField: string, button: string, menu: string},
   match: {params: {id: string}},
 };

@@ -32,7 +32,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
-    "flow-bin": "^0.61.0",
+    "flow-bin": "^0.59.0",
     "redux-devtools": "^3.4.1"
   }
 }

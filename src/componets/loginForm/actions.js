@@ -1,18 +1,27 @@
 // @flow
 import {push} from 'react-router-redux';
 
-import type { ActionType } from '../../actions/actionTypes';
+import type {AuthActionType, SimpleActionType} from '../../actions/actionTypes';
 import actions from '../../constants/actionConstants';
-import type {StoreType} from "../../store/storeTypes";
+import type {StoreType, User} from "../../store/storeTypes";
 
-type Dispatch = (action: ActionType | ThunkAction | PromiseAction) => any;
+type Dispatch = (action: AuthActionType | ThunkAction | PromiseAction) => any;
+type SimpleDispatch = (action: SimpleActionType) => any;
 type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-type PromiseAction = Promise<ActionType>;
+type PromiseAction = Promise<AuthActionType>;
+
+type ResponseType = {
+  status: string,
+  result: {
+    user?: User,
+    token?: string,
+  }
+}
 
 export function loginRequest(email: string, password: string, captcha: string): ThunkAction {
 
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
 
     dispatch({ type: actions.ACTION_LOGIN_STARTED });
 
@@ -34,14 +43,18 @@ export function loginRequest(email: string, password: string, captcha: string): 
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then(json => {
+      .then((json: ResponseType) => {
 
-        if (json.status !== 'ok') throw Error(json);
+        if (json.status !== 'ok') throw new Error(json.status);
 
         console.log('ACTION_LOGIN_SUCCESS', json);
-        localStorage.setItem('token', json.result.token);
-        dispatch({ type: actions.ACTION_LOGIN_SUCCESS, payload: {user: json.result.user, token: json.result.token} });
-        dispatch(push('/'));
+        if(json.result.token) {
+          localStorage.setItem('token', json.result.token);
+          dispatch({ type: actions.ACTION_LOGIN_SUCCESS, user: json.result.user, token: json.result.token });
+          dispatch(push('/'));
+        } else {
+          throw new Error('Token not found in response!');
+        }
       })
       .catch(function(error) {
         console.log('Login Error:', error);
@@ -55,7 +68,7 @@ export function checkAuth(): ThunkAction {
 
   return (dispatch) => {
 
-    let token = localStorage.getItem('token');
+    let token: ?string = localStorage.getItem('token');
 
     if (!token) {
       /**
@@ -83,16 +96,16 @@ export function checkAuth(): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then(json => {
+      .then((json: ResponseType) => {
 
-        if (json.status !== 'ok') throw Error(json);
+        if (json.status !== 'ok') throw new Error(json.status);
 
         console.log('ACTION_AUTH_CONFIRMED', json);
-        dispatch({ type: actions.ACTION_AUTH_CONFIRMED, payload: {user: json.result.user, token: token} });
+        dispatch({ type: actions.ACTION_AUTH_CONFIRMED, user: json.result.user, token: token });
       })
       .catch(function(error) {
         localStorage.removeItem('token');
-        dispatch({ type: actions.ACTION_AUTH_REJECTED, payload: error });
+        dispatch({ type: actions.ACTION_AUTH_REJECTED, error: error });
         dispatch(push('/login'));
       });
   }
