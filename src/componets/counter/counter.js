@@ -16,7 +16,6 @@ type Props = {
 class Counter extends Component<Props> {
 
   onClick = (event: SyntheticEvent<HTMLButtonElement>) => {
-    console.log('target', event.currentTarget);
     this.props.increment();
   };
 

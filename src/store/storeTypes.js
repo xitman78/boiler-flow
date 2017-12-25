@@ -1,16 +1,9 @@
 // @flow
 
+import type {User} from '../data-types/user';
+
 export type CounterState = {
   +a: number
-};
-
-export type User = {
-  _id: string,
-  firstName: string,
-  lastName: string,
-  email: string,
-  gender: string,
-  createdAt: string,
 };
 
 export type UsersState = {

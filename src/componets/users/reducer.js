@@ -12,8 +12,6 @@ const defaultState = {
 
 export function users(state: UsersState = defaultState, action: UsersActionType): UsersState {
 
-  console.log(action, state);
-
   switch(action.type) {
 
     case actions.ACTION_LOADING_USERS:

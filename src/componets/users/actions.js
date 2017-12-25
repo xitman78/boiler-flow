@@ -2,7 +2,8 @@
 import {push} from 'react-router-redux';
 
 import type {UsersActionType} from '../../actions/actionTypes';
-import type {StoreType, User} from "../../store/storeTypes";
+import type {StoreType} from "../../store/storeTypes";
+import type {User} from '../../data-types/user';
 import actions from '../../constants/actionConstants';
 
 type Dispatch = (action: UsersActionType) => any;
@@ -40,8 +41,7 @@ export function getUsers(): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then(json => {
-        console.log(json.users);
+      .then((json: {users: User[]}) => {
         dispatch({ type: actions.ACTION_LOAD_USERS_SUCCESS, users: json.users });
       })
       .catch(function(error) {
@@ -80,8 +80,7 @@ export function getUser(id: string): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then(json => {
-        console.log(json.user);
+      .then((json: {user: User}) => {
         dispatch({ type: actions.ACTION_LOAD_USER_SUCCESS, editUser: json.user });
       })
       .catch(function(error) {
@@ -132,7 +131,6 @@ export function updateUser(id: string, values: User): ThunkAction {
         throw new TypeError("Oops, we haven't got JSON!");
       })
       .then((json: User) => {
-        console.log(json);
         dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
         dispatch(push('/users'));
       })

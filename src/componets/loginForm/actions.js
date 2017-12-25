@@ -3,7 +3,8 @@ import {push} from 'react-router-redux';
 
 import type {AuthActionType} from '../../actions/actionTypes';
 import actions from '../../constants/actionConstants';
-import type {StoreType, User} from "../../store/storeTypes";
+import type {StoreType} from "../../store/storeTypes";
+import type {User} from '../../data-types/user';
 
 type Dispatch = (action: AuthActionType | ThunkAction | PromiseAction) => any;
 type GetState = () => StoreType;
@@ -46,7 +47,6 @@ export function loginRequest(email: string, password: string, captcha: string): 
 
         if (json.status !== 'ok') throw new Error(json.status);
 
-        console.log('ACTION_LOGIN_SUCCESS', json);
         if(json.result.token) {
           localStorage.setItem('token', json.result.token);
           dispatch({ type: actions.ACTION_LOGIN_SUCCESS, user: json.result.user, token: json.result.token });
@@ -79,7 +79,6 @@ export function checkAuth(): ThunkAction {
       /**
        ** Token not found
        **/
-      console.log('Token fot found!!!');
       dispatch({type: actions.ACTION_AUTH_TOKEN_NOT_FOUND});
       return;
     }
@@ -106,7 +105,6 @@ export function checkAuth(): ThunkAction {
 
         if (json.status !== 'ok') throw new Error(json.status);
 
-        console.log('ACTION_AUTH_CONFIRMED', json);
         dispatch({ type: actions.ACTION_AUTH_CONFIRMED, user: json.result.user, token: token });
       })
       .catch(function(error) {

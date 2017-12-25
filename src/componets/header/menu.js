@@ -3,7 +3,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import type {User} from '../../store/storeTypes';
+import type {User} from '../../data-types/user';
 
 const Menu = ({authUser}: {authUser: User}) => <p className="App-intro">
   <Link to="/">Home</Link>&nbsp;<Link to="/users">Users</Link>&nbsp;

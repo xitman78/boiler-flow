@@ -12,8 +12,6 @@ const defaultState = {
 
 export function auth(state: AuthState = defaultState, action: AuthActionType): AuthState {
 
-  console.log(action, state);
-
   switch(action.type) {
 
     case actions.ACTION_LOGIN_STARTED:

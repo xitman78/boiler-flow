@@ -1,8 +1,7 @@
 // @flow
 
-import type {User} from '../store/storeTypes';
+import type {User} from '../data-types/user';
 
-type PayloadType = {user: User, token: string} | User | User[]
 
 export type SimpleActionType = {
   +type: string,
@@ -14,10 +13,6 @@ export type UsersActionType = {
   +editUser?: User,
 };
 
-/*export type AuthPayloadType = {
-  +user: User,
-  +token: string
-};*/
 
 export type AuthActionType = {
   +type: string,
@@ -25,5 +20,3 @@ export type AuthActionType = {
   +token?: ?string,
   +error?: any
 };
-
-// export type ActionType = SimpleAction | UsersAction

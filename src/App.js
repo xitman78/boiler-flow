@@ -6,7 +6,7 @@ import type { Node } from 'react';
 import {Route, Router, Switch, Link} from 'react-router-dom';
 import 'typeface-roboto';
 import { withStyles } from 'material-ui/styles';
-import withRoot from './componets/withRoot';
+import withRoot from './componets/hoc/withRoot';
 import withCheckAuth from './componets/hoc/withCheckAuth';
 
 import Home from './containers/home';

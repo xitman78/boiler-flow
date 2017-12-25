@@ -16,7 +16,7 @@ import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
 import type {UsersActionType} from "../../actions/actionTypes";
-import type {UsersState, User} from "../../store/storeTypes";
+import type {User} from '../../data-types/user';
 
 import './list.css';
 
