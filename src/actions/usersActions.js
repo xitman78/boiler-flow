@@ -50,6 +50,24 @@ export function getUsers(): ThunkAction {
   }
 }
 
+export function getNewUser(): UsersActionType {
+
+  return {
+    type: actions.ACTION_NEW_USER_CREATED,
+    editUser: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      gender: 'm',
+      password: '',
+      confirmPassword: '',
+      chief: [],
+      department: [],
+    }
+  };
+
+}
+
 export function getUser(id: string): ThunkAction {
 
   return (dispatch: Dispatch, getState) => {
@@ -131,6 +149,56 @@ export function updateUser(id: string, values: User): ThunkAction {
         throw new TypeError("Oops, we haven't got JSON!");
       })
       .then((json: User) => {
+        dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
+        dispatch(push('/users'));
+      })
+      .catch(function(error) {
+        console.log('Fetch Error :-S', error);
+      });
+  }
+}
+
+export function createUser(values: User): ThunkAction {
+
+  return (dispatch: Dispatch, getState: GetState) => {
+
+    let userOrg = getState().users.editUser;
+
+    let userData = Object.assign({}, userOrg, values);
+
+    delete userData._id;
+    delete userData.createdAt;
+    delete userData.active;
+
+    let token = getState().auth.token;
+
+    if (!token) {
+      dispatch({type: actions.ACTION_LOGOUT});
+      dispatch(push('/login'));
+      return;
+    }
+
+    let request = new Request('http://localhost:3231/api/v1/users',
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "x-access-token": token,
+        }),
+        body: JSON.stringify(userData),
+      });
+
+    fetch(request)
+      .then(response => {
+        let contentType = response.headers.get("content-type");
+        if(contentType && contentType.includes("application/json")) {
+          return response.json();
+        }
+        throw new TypeError("Oops, we haven't got JSON!");
+      })
+      .then((json: User | {status: string}) => {
+
         dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
         dispatch(push('/users'));
       })

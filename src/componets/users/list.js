@@ -22,6 +22,7 @@ class UsersList extends Component<Props> {
   render() {
 
     return <div className="users-list-container">
+      <Link to='/users/new'>New User</Link><br />
       {this.props.users.list.map((user: User) => <div key={user._id}><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></div>)}
       </div>;
   }

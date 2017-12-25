@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 // import {Link} from "react-router-dom";
 
 import { Form, Field } from 'react-final-form';
-import {getUser, updateUser} from "../../actions/usersActions";
+import {getUser, updateUser, getNewUser, createUser} from "../../actions/usersActions";
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -38,6 +38,11 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 400,
   },
+  passField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
   button: {
     marginTop: 16,
     marginRight: 16,
@@ -60,19 +65,30 @@ type Props = {
   user: ?User,
   getUser: (id: string) => UsersActionType,
   updateUser: (id: string, values: User) => UsersActionType,
-  classes: {root: string, container: string, textField: string, button: string, menu: string},
+  createUser: (values: User) => UsersActionType,
+  getNewUser: () => UsersActionType,
+  classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string},
   match: {params: {id: string}},
 };
 
-class UserEdit extends Component<Props, {userId: string}> {
+class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
 
   componentWillMount() {
-    this.setState({userId: this.props.match.params.id});
-    this.props.getUser(this.props.match.params.id);
+    if (this.props.match.params.id === 'new') {
+      this.setState({userId: 'new', isNew: true});
+      this.props.getNewUser();
+    } else {
+      this.setState({userId: this.props.match.params.id, isNew: false});
+      this.props.getUser(this.props.match.params.id);
+    }
   }
 
   onSubmit = values => {
-    this.props.updateUser(this.state.userId, values);
+    if (this.state.isNew) {
+      this.props.createUser(values);
+    } else {
+      this.props.updateUser(this.state.userId, values);
+    }
   };
 
   render() {
@@ -94,7 +110,7 @@ class UserEdit extends Component<Props, {userId: string}> {
             return <Paper className={classes.root} elevation={4}>
               <Icon color="primary" style={{ fontSize: 50 }}>account_box</Icon>
               <Typography type="headline" component="h3" color={'primary'}>
-                Edit User
+                {this.state.isNew ? 'Create User' : 'Edit User'}
               </Typography>
               <form onSubmit={handleSubmit} className={classes.container}>
                 <div>
@@ -146,6 +162,31 @@ class UserEdit extends Component<Props, {userId: string}> {
                     ))}
                   </Field>
                 </div>
+                {this.state.isNew &&
+                  [<div>
+                    <Field
+                      className={classes.passField}
+                      required
+                      type="password"
+                      validate={validateRequired}
+                      name="password"
+                      component={TextFieldAdapter}
+                      label="Password"
+                      margin="normal"
+                    />
+                    <Field
+                      className={classes.passField}
+                      required
+                      type="password"
+                      validate={validateRequired}
+                      name="confirmPassword"
+                      component={TextFieldAdapter}
+                      label="Confirm password"
+                      margin="normal"
+                    />
+                  </div>,
+                  ]
+                }
                 <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
                   Submit
                 </Button>
@@ -167,6 +208,8 @@ export default connect(
   {
     getUser: getUser,
     updateUser: updateUser,
+    getNewUser: getNewUser,
+    createUser: createUser,
   })(withStyles(styles)(UserEdit));
 
 

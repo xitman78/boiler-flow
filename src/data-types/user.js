@@ -5,4 +5,6 @@ export type User = {
   email: string,
   gender: string,
   createdAt: string,
+  chief: string[],
+  department: string[],
 };
