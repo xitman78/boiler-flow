@@ -2,7 +2,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {decrement, increment} from "./actions";
+import {decrement, increment} from "../../actions/counterActions";
 
 import type {SimpleActionType} from "../../actions/actionTypes";
 import type {CounterState} from "../../store/storeTypes";

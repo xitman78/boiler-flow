@@ -2,7 +2,7 @@
 
 import React, {PureComponent} from "react";
 import {connect} from 'react-redux';
-import {logoutAction} from "../componets/loginForm/actions";
+import {logoutAction} from "../actions/authActions";
 
 class Logout extends PureComponent<{logoutAction: Function}> {
 

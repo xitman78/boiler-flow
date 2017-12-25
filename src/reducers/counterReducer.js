@@ -1,8 +1,8 @@
 // @flow
 
-import type {SimpleActionType} from "../../actions/actionTypes";
-import type {CounterState} from "../../store/storeTypes";
-import actions from "../../constants/actionConstants";
+import type {SimpleActionType} from "../actions/actionTypes";
+import type {CounterState} from "../store/storeTypes";
+import actions from "../actions/actionConstants";
 
 export function counter(state: CounterState = {a: 1}, action: SimpleActionType): CounterState {
 

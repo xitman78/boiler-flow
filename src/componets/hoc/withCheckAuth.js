@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {checkAuth} from "../loginForm/actions";
+import {checkAuth} from "../../actions/authActions";
 
 
 export default function withCheckAuth(Component: React.ComponentType<any>): React.ComponentType<any> {

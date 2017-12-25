@@ -1,8 +1,8 @@
 // @flow
 
-import type {UsersActionType} from "../../actions/actionTypes";
-import type {UsersState} from "../../store/storeTypes";
-import actions from "../../constants/actionConstants";
+import type {UsersActionType} from "../actions/actionTypes";
+import type {UsersState} from "../store/storeTypes";
+import actions from "../actions/actionConstants";
 
 const defaultState = {
   count: 0,

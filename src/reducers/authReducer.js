@@ -1,8 +1,8 @@
 // @flow
 
-import type {AuthActionType} from "../../actions/actionTypes";
-import type {AuthState} from "../../store/storeTypes";
-import actions from "../../constants/actionConstants";
+import type {AuthActionType} from "../actions/actionTypes";
+import type {AuthState} from "../store/storeTypes";
+import actions from "../actions/actionConstants";
 
 const defaultState = {
   authUser: null,

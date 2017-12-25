@@ -1,10 +1,10 @@
 // @flow
 import {push} from 'react-router-redux';
 
-import type {AuthActionType} from '../../actions/actionTypes';
-import actions from '../../constants/actionConstants';
-import type {StoreType} from "../../store/storeTypes";
-import type {User} from '../../data-types/user';
+import type {AuthActionType} from './actionTypes';
+import actions from './actionConstants';
+import type {StoreType} from "../store/storeTypes";
+import type {User} from '../data-types/user';
 
 type Dispatch = (action: AuthActionType | ThunkAction | PromiseAction) => any;
 type GetState = () => StoreType;

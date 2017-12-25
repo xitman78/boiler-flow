@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {getUsers} from "./actions";
+import {getUsers} from "../../actions/usersActions";
 
 import type {ActionType} from "../../actions/actionTypes";
 import type {UsersState, User} from "../../store/storeTypes";

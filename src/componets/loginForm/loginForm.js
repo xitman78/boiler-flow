@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 // import {Link} from "react-router-dom";
 
 import { Form, Field } from 'react-final-form';
-import {loginRequest} from "./actions";
+import {loginRequest} from "../../actions/authActions";
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
