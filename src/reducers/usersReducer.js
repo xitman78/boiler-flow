@@ -6,6 +6,8 @@ import actions from "../actions/actionConstants";
 
 const defaultState = {
   count: 0,
+  page: 1,
+  itemsPerPage: 5,
   list: [],
   editUser: undefined,
 };
@@ -14,11 +16,8 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
 
   switch(action.type) {
 
-    case actions.ACTION_LOADING_USERS:
-      return {...state, count: 0, list: []};
-
     case actions.ACTION_LOAD_USERS_SUCCESS:
-      return {...state, count: action.users ? action.users.length : 0, list: action.users};
+      return {...state, count: action.totalCount, page: action.page, list: action.users, itemsPerPage: action.perPage};
 
     case actions.ACTION_LOADING_USER:
       return {...state, editUser: undefined};

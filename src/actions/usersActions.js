@@ -11,11 +11,9 @@ type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<UsersActionType>;
 
-export function getUsers(): ThunkAction {
+export function getUsers(_page?: number, _itemsPerPage?: number): ThunkAction {
 
   return (dispatch: Dispatch, getState) => {
-
-    dispatch({ type: actions.ACTION_LOADING_USERS });
 
     let token = getState().auth.token;
 
@@ -25,7 +23,12 @@ export function getUsers(): ThunkAction {
       return;
     }
 
-    let request = new Request('http://localhost:3231/api/v1/users?page=1&per_page=30',
+    let page: number = _page !== undefined ? _page : getState().users.page;
+    let perPage: number = _itemsPerPage !== undefined ? _itemsPerPage : getState().users.itemsPerPage;
+
+    if (perPage !== getState().users.itemsPerPage) page = 1;
+
+    let request = new Request(`http://localhost:3231/api/v1/users?page=${page}&per_page=${perPage}`,
       {
         method: 'GET',
         headers: new Headers({
@@ -41,8 +44,8 @@ export function getUsers(): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then((json: {users: User[]}) => {
-        dispatch({ type: actions.ACTION_LOAD_USERS_SUCCESS, users: json.users });
+      .then((json: {users: User[], totalCount: number, page: number, perPage: number}) => {
+        dispatch({ type: actions.ACTION_LOAD_USERS_SUCCESS, users: json.users, totalCount: json.totalCount, page: json.page, perPage: perPage });
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);

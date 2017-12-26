@@ -8,6 +8,8 @@ export type CounterState = {
 
 export type UsersState = {
   count: number,
+  page: number,
+  itemsPerPage: number,
   list?: User[],
   editUser?: User,
 };

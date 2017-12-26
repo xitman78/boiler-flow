@@ -11,6 +11,9 @@ export type UsersActionType = {
   +type: string,
   +users?: User[],
   +editUser?: User,
+  +totalCount?: number,
+  +page?: number,
+  +perPage?: number,
 };
 
 
