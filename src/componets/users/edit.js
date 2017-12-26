@@ -110,9 +110,9 @@ class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
           }}
           render={({ handleSubmit, reset, submitting, pristine, values }) => {
             return <Paper className={classes.root} elevation={4}>
-              <Icon color="primary" style={{ fontSize: 50 }}>account_box</Icon>
+              <Icon color="primary" style={{ fontSize: 50 }}>{this.state.isNew ? 'person_add' : 'person'}</Icon>
               <Typography type="headline" component="h3" color={'primary'}>
-                {this.state.isNew ? 'Create User' : 'Edit User'}
+                {this.state.isNew ? 'New User' : 'Edit User'}
               </Typography>
               <form onSubmit={handleSubmit} className={classes.container}>
                 <div>
@@ -165,7 +165,7 @@ class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
                   </Field>
                 </div>
                 {this.state.isNew &&
-                  [<div>
+                  [<div key='new-user-pass'>
                     <Field
                       className={classes.passField}
                       required
@@ -176,6 +176,8 @@ class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
                       label="Password"
                       margin="normal"
                     />
+                  </div>,
+                  <div key='new-user-confirm-pass'>
                     <Field
                       className={classes.passField}
                       required

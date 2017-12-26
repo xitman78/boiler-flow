@@ -4,7 +4,7 @@ import React, {PureComponent} from "react";
 import {connect} from 'react-redux';
 import {logoutAction} from "../actions/authActions";
 
-class Logout extends PureComponent<{logoutAction: Function}> {
+class Logout extends React.PureComponent<{logoutAction: Function}> {
 
   componentWillMount() {
     this.props.logoutAction();
@@ -15,4 +15,4 @@ class Logout extends PureComponent<{logoutAction: Function}> {
   }
 }
 
-export default connect(() => ({}), {logoutAction})(Logout);
+export default connect(null, {logoutAction})(Logout);
