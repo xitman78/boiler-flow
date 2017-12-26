@@ -190,7 +190,7 @@ class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
                   ]
                 }
                 <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
-                  Submit
+                  Save
                 </Button>
                 <Button className={classes.button} raised color="accent" onClick={reset} disabled={submitting || pristine}>
                   Reset

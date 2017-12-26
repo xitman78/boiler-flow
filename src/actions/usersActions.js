@@ -26,8 +26,6 @@ export function getUsers(_page?: number, _itemsPerPage?: number): ThunkAction {
     let page: number = _page !== undefined ? _page : getState().users.page;
     let perPage: number = _itemsPerPage !== undefined ? _itemsPerPage : getState().users.itemsPerPage;
 
-    if (perPage !== getState().users.itemsPerPage) page = 1;
-
     let request = new Request(`http://localhost:3231/api/v1/users?page=${page}&per_page=${perPage}`,
       {
         method: 'GET',

@@ -27,24 +27,29 @@ const styles = theme => ({
 
 type Props = {
   users: UsersState,
-  getUser: () => ActionType,
+  getUser: (page?: number, perPage?: number) => ActionType,
   classes: {root: 'string', table: 'string'},
 };
 
-class UsersList extends Component<Props> {
+class UsersList extends Component<Props, {perPage: number, page: number}> {
 
   componentWillMount() {
+    this.setState({perPage: this.props.users.itemsPerPage, page: this.props.users.page});
     this.props.getUsers();
   }
 
   handleChangePage = (event, page) => {
-    console.log('handleChangePage', page);
-    this.props.getUsers(page + 1);
+    this.setState({page: page + 1});
+    //Fix - prevent load users twice
+    if ((page +1) !== this.props.users.page || this.props.users.itemsPerPage !== this.state.perPage) {
+      this.props.getUsers(page + 1, this.state.perPage);
+    }
+
   };
 
   handleChangeRowsPerPage = (event) => {
-    console.log('handleChangeRowsPerPage', event.target.value);
-    this.props.getUsers(this.props.users.page, event.target.value);
+    this.setState({perPage: event.target.value, page: 1});
+    this.props.getUsers(1, event.target.value);
   };
 
   render() {
