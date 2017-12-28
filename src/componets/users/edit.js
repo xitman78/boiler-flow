@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
 // import {Link} from "react-router-dom";
 
@@ -165,31 +165,32 @@ class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
                   </Field>
                 </div>
                 {this.state.isNew &&
-                  [<div key='new-user-pass'>
-                    <Field
-                      className={classes.passField}
-                      required
-                      type="password"
-                      validate={validateRequired}
-                      name="password"
-                      component={TextFieldAdapter}
-                      label="Password"
-                      margin="normal"
-                    />
-                  </div>,
-                  <div key='new-user-confirm-pass'>
-                    <Field
-                      className={classes.passField}
-                      required
-                      type="password"
-                      validate={validateRequired}
-                      name="confirmPassword"
-                      component={TextFieldAdapter}
-                      label="Confirm password"
-                      margin="normal"
-                    />
-                  </div>,
-                  ]
+                  <React.Fragment>
+                    <div>
+                      <Field
+                        className={classes.passField}
+                        required
+                        type="password"
+                        validate={validateRequired}
+                        name="password"
+                        component={TextFieldAdapter}
+                        label="Password"
+                        margin="normal"
+                      />
+                    </div>
+                    <div>
+                      <Field
+                        className={classes.passField}
+                        required
+                        type="password"
+                        validate={validateRequired}
+                        name="confirmPassword"
+                        component={TextFieldAdapter}
+                        label="Confirm password"
+                        margin="normal"
+                      />
+                    </div>
+                  </React.Fragment>
                 }
                 <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
                   Save
