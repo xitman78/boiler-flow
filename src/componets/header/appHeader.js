@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-function ButtonAppBar(props: {classes: {root: string, menuButton: string, flex: string}}) {
+function ButtonAppBar(props: {classes: {[$Keys<typeof styles>]: string}}) {
   const { classes } = props;
   return (
     <div className={classes.root}>
