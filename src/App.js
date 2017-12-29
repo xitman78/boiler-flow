@@ -14,6 +14,7 @@ import Users from './containers/users';
 import Login from './containers/login';
 import Logout from './containers/logout';
 import Menu from './componets/header/menu';
+import AppHeader from './componets/header/appHeader';
 import logo from './logo.svg';
 import './App.css';
 import store, {history} from "./store/Store";
@@ -28,10 +29,11 @@ const styles = {
 let WithCheckAuth = () => (
   <Router history={history}>
     <div className="App">
-      <header className="App-header">
+      {/*<header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to React</h1>
-      </header>
+      </header>*/}
+      <AppHeader />
       <Menu />
       <Route exact path="/" component={Home}/>
       <Route path="/users" component={Users}/>
