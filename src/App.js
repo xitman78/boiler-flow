@@ -15,30 +15,55 @@ import Login from './containers/login';
 import Logout from './containers/logout';
 import Menu from './componets/header/menu';
 import AppHeader from './componets/header/appHeader';
-import logo from './logo.svg';
+import MiniDrawer from './componets/drawer/drawer';
+
 import './App.css';
 import store, {history} from "./store/Store";
 
-const styles = {
+const styles = theme => ({
   root: {
-    textAlign: 'center',
-    paddingTop: 200,
+   // textAlign: 'center',
+   // paddingTop: 200,
+    width: '100%',
+  //  height: 430,
+    marginTop: 0, //theme.spacing.unit * 1,
+    zIndex: 1,
+  //  overflow: 'hidden',
   },
-};
+  appFrame: {
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+  },
+  content: {
+    width: '100%',
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: 24,
+    height: 'calc(100% - 56px)',
+    marginTop: 56,
+    [theme.breakpoints.up('sm')]: {
+      height: 'calc(100% - 64px)',
+      marginTop: 64,
+    },
+  },
+});
 
-let WithCheckAuth = () => (
+let WithCheckAuth = (props: {classes: {[key: string]: string}}) => (
   <Router history={history}>
-    <div className="App">
-      {/*<header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to React</h1>
-      </header>*/}
-      <AppHeader />
-      <Menu />
-      <Route exact path="/" component={Home}/>
-      <Route path="/users" component={Users}/>
-      <Route path="/login" component={Login}/>
-      <Route path="/logout" component={Logout}/>
+    <div className={props.classes.root}>
+      <div className={props.classes.appFrame}>
+        <AppHeader />
+        <MiniDrawer />
+        <main className={props.classes.content}>
+          <Menu />
+          <Route exact path="/" component={Home}/>
+          <Route path="/users" component={Users}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/logout" component={Logout}/>
+        </main>
+      </div>
     </div>
   </Router>
 );
@@ -46,13 +71,13 @@ let WithCheckAuth = () => (
 WithCheckAuth = withCheckAuth(WithCheckAuth);
 
 
-class App extends Component<{}> {
+class App extends Component<{classes: {[key: string]: string}}> {
 
   render(): Node {
 
     return (
       <Provider store={store}>
-        <WithCheckAuth />
+        <WithCheckAuth classes={this.props.classes} />
       </Provider>
     );
   }

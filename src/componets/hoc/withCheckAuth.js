@@ -17,7 +17,7 @@ export default function withCheckAuth(Component: React.ComponentType<any>): Reac
 
     render() {
       if (this.props.authChecked) {
-        return <Component />;
+        return <Component {...this.props} />;
       } else {
         return null;
       }

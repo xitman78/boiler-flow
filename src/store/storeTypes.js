@@ -20,7 +20,12 @@ export type AuthState = {
   authChecked: boolean
 };
 
+export type DrawerState = {
+  isDrawerOpen: boolean,
+};
+
 export type StoreType = {
   users: UsersState,
   auth: AuthState,
+  UI: DrawerState,
 };

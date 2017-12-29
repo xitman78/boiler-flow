@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import {counter} from '../reducers/counterReducer';
 import {users} from '../reducers/usersReducer';
 import {auth} from '../reducers/authReducer';
+import {UI} from '../reducers/UIReducer';
 
 export const history = createHistory();
 
@@ -22,6 +23,7 @@ const combinedReducers = combineReducers({
   counter,
   users,
   auth,
+  UI,
   router: routerReducer
 }, applyMiddleware(middleware));
 
