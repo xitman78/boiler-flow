@@ -6,7 +6,7 @@ import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import Icon from 'material-ui/Icon';
+import InputIcon from 'material-ui-icons/Input';
 
 import {loginRequest} from "../../actions/authActions";
 import TextFieldAdapter from '../form/textFieldAdapter';
@@ -35,11 +35,15 @@ const styles = theme => ({
     marginTop: 16,
     marginRight: 16,
   },
+  bigIcon: {
+    width: 50,
+    height: 50,
+  },
 });
 
 type Props = {
   loginRequest: (email: string, password: string, captcha: string) => mixed,
-  classes: {root: string, container: string, textField: string, button: string},
+  classes: {root: string, container: string, textField: string, button: string, bigIcon: string},
 };
 
 class LoginForm extends PureComponent<Props> {
@@ -62,7 +66,7 @@ class LoginForm extends PureComponent<Props> {
           }}
           render={({ handleSubmit, reset, submitting, pristine, values }) => {
             return <Paper className={classes.root} elevation={4}>
-              <Icon color="primary" style={{ fontSize: 50 }}>local_florist</Icon>
+              <InputIcon color="primary" className={this.props.classes.bigIcon}/>
               <Typography type="headline" component="h3" color={'primary'}>
                 Sign-In
               </Typography>

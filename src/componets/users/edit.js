@@ -10,7 +10,8 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import Icon from 'material-ui/Icon';
+import Person from 'material-ui-icons/Person';
+import PersonAdd from 'material-ui-icons/PersonAdd';
 import {createStructuredSelector} from 'reselect';
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
@@ -53,6 +54,10 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  bigIcon: {
+    width: 50,
+    height: 50,
+  }
 });
 
 
@@ -68,7 +73,7 @@ type Props = {
   updateUser: (id: string, values: User) => UsersActionType,
   createUser: (values: User) => UsersActionType,
   getNewUser: () => UsersActionType,
-  classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string},
+  classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string, bigIcon: string},
   match: {params: {id: string}},
 };
 
@@ -111,7 +116,10 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
           }}
           render={({ handleSubmit, reset, submitting, pristine, values }) => {
             return <Paper className={classes.root} elevation={4}>
-              <Icon color="primary" style={{ fontSize: 50 }}>{this.state.isNew ? 'person_add' : 'person'}</Icon>
+              {this.state.isNew ?
+                <PersonAdd color="primary" className={this.props.classes.bigIcon}/>
+                :
+                <Person color="primary" className={this.props.classes.bigIcon}/>}
               <Typography type="headline" component="h3" color={'primary'}>
                 {this.state.isNew ? 'New User' : 'Edit User'}
               </Typography>

@@ -2,12 +2,13 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import { withStyles } from 'material-ui/styles';
-import Table, { TableBody, TableCell, TableHead, TableRow, TableFooter,
+import Table, { TableBody, TableCell, TableHead, TableRow, TableFooter, TableSortLabel,
   TablePagination, } from 'material-ui/Table';
+import Tooltip from 'material-ui/Tooltip';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
+import PersonAdd from 'material-ui-icons/PersonAdd'
 import {createStructuredSelector} from 'reselect';
 
 import {getUsers} from "../../actions/usersActions";
@@ -17,25 +18,12 @@ import type {StoreType, UsersState} from "../../store/storeTypes";
 import './list.css';
 
 const styles = theme => ({
-  root: {
-    margin: 20
-  },
-  new_button: {
-    marginLeft: 20,
-  },
-  table: {
-    minWidth: 700,
-  },
-  tableTitle: {
-    marginLeft: 20,
-    paddingTop: 20,
-  }
 });
 
 type Props = {
   users: UsersState,
   getUser: (page?: number, perPage?: number) => ActionType,
-  classes: {root: string, table: string, new_button: string},
+  classes: {},
 };
 
 class UsersList extends Component<Props, {perPage: number, page: number}> {
@@ -59,18 +47,42 @@ class UsersList extends Component<Props, {perPage: number, page: number}> {
     this.props.getUsers(1, event.target.value);
   };
 
+  createSortHandler =  property => event => {
+    console.log('createSortHandler', property);
+  };
+
   render() {
 
     return <div className="users-list-container">
-        <Button className={this.props.classes.new_button} fab mini color="primary" aria-label="Create User" component={Link} to='/users/new'>
-          <Icon color="inherit" style={{ fontSize: 26 }}>person_add</Icon>
-        </Button>
-        <Paper className={this.props.classes.root}>
-          <Typography className={this.props.classes.tableTitle} type="title">User Accounts</Typography>
-          <Table className={this.props.classes.table}>
+        <Paper className="users-list-root">
+          <div className="user-list-table-header">
+            <div className="user-list-table-title">
+              <Typography type="title">User Accounts</Typography>
+            </div>
+            <div className="user-list-table-new-icon">
+              <Button fab mini color="primary" aria-label="Create User" component={Link} to='/users/new'>
+                <PersonAdd color="inherit" style={{ fontSize: 26 }} />
+              </Button>
+            </div>
+          </div>
+          <Table className="users-list-table">
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
+                <TableCell>
+                  <Tooltip
+                    title="Sort by name"
+                    placement={true ? 'bottom-end' : 'bottom-start'}
+                    enterDelay={300}
+                  >
+                    <TableSortLabel
+                      active={true}
+                      direction={'asc'}
+                      onClick={this.createSortHandler('name')}
+                    >
+                      Name
+                    </TableSortLabel>
+                  </Tooltip>
+                  </TableCell>
                 <TableCell>E-mail</TableCell>
               </TableRow>
             </TableHead>

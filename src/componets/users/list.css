@@ -1,3 +1,30 @@
 .users-list-container {
     text-align: left;
 }
+
+.users-list-root {
+    margin: 10px;
+}
+
+.users-list-table {
+    min-width: 250px;
+}
+
+.user-list-table-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.user-list-table-title {
+    flex: 3;
+    margin-left: 20px;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.user-list-table-new-icon {
+    flex: 1;
+    text-align: right;
+    padding: 10px 20px 0 0;
+}
