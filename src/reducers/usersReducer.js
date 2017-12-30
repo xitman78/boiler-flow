@@ -10,6 +10,7 @@ const defaultState = {
   itemsPerPage: 5,
   list: [],
   editUser: undefined,
+  serverErrorMsg: undefined,
 };
 
 export function users(state: UsersState = defaultState, action: UsersActionType): UsersState {
@@ -29,10 +30,10 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
       return {...state, editUser: action.editUser};
 
     case actions.ACTION_CLEAN_EDIT_USED_DATA:
-      return {...state, editUser: undefined};
+      return {...state, editUser: undefined, serverErrorMsg: undefined};
 
-/*    case actions.ACTION_SAVE_USER_SUCCESS:
-      return {...state, editUser: undefined};*/
+    case actions.ACTION_SAVE_USER_ERROR:
+      return {...state, serverErrorMsg: action.error};
 
     case actions.ACTION_LOGOUT:
       return Object.assign({}, defaultState);

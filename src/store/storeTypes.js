@@ -12,6 +12,7 @@ export type UsersState = {
   itemsPerPage: number,
   list?: User[],
   editUser?: User,
+  serverErrorMsg?: string,
 };
 
 export type AuthState = {

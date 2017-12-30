@@ -11,6 +11,11 @@ type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 // type PromiseAction = Promise<UsersActionType>;
 
+type ErrorResponseType =  {
+  status: string,
+  msg: string,
+};
+
 export function cleanEditUserData(): SimpleActionType {
   return {
     type: actions.ACTION_CLEAN_EDIT_USED_DATA,
@@ -155,12 +160,17 @@ export function updateUser(id: string, values: User): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then((json: User) => {
-        dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
-        dispatch(push('/users'));
+      .then((json: User | ErrorResponseType) => {
+        if (json.status === 'err') {
+          dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: json.msg });
+        } else {
+          dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
+          dispatch(push('/users'));
+        }
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);
+        dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: error });
       });
   }
 }
@@ -204,12 +214,17 @@ export function createUser(values: User): ThunkAction {
         }
         throw new TypeError("Oops, we haven't got JSON!");
       })
-      .then((json: User | {status: string}) => {
-        dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
-        dispatch(push('/users'));
+      .then((json: User | ErrorResponseType ) => {
+        if (json.status === 'err') {
+          dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: json.msg });
+        } else {
+          dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
+          dispatch(push('/users'));
+        }
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);
+        dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: error });
       });
   }
 }

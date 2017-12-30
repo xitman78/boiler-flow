@@ -58,6 +58,9 @@ const styles = theme => ({
   bigIcon: {
     width: 50,
     height: 50,
+  },
+  serverError: {
+    marginTop: 10,
   }
 });
 
@@ -75,7 +78,8 @@ type Props = {
   createUser: (values: User) => UsersActionType,
   getNewUser: () => UsersActionType,
   cleanEditUserData: () => SimpleActionType,
-  classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string, bigIcon: string},
+  serverError: ? string,
+  classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string, bigIcon: string, serverError: string},
   match: {params: {id: string}},
 };
 
@@ -207,6 +211,12 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
                     </div>
                   </React.Fragment>
                 }
+                {
+                  this.props.serverError &&
+                  <Typography color='error' className={this.props.classes.serverError}>
+                    {this.props.serverError}
+                  </Typography>
+                }
                 <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
                   Save
                 </Button>
@@ -223,6 +233,7 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
 
 const selector = createStructuredSelector({
   user: (state: StoreType) => state.users.editUser,
+  serverError: (state: StoreType) => state.users.serverErrorMsg,
 });
 
 const actionsMap = {

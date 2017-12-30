@@ -14,6 +14,7 @@ export type UsersActionType = {
   +totalCount?: number,
   +page?: number,
   +perPage?: number,
+  +error?: string,
 };
 
 
