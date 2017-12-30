@@ -13,7 +13,7 @@ import Person from 'material-ui-icons/Person';
 import PersonAdd from 'material-ui-icons/PersonAdd';
 import {createStructuredSelector} from 'reselect';
 
-import {getUser, updateUser, getNewUser, createUser, cleanEditUserData} from "../../actions/usersActions";
+import {getUser, updateUser, getNewUser, createUser, cleanEditUserData, removeUser} from "../../actions/usersActions";
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
@@ -78,7 +78,8 @@ type Props = {
   createUser: (values: User) => UsersActionType,
   getNewUser: () => UsersActionType,
   cleanEditUserData: () => SimpleActionType,
-  serverError: ? string,
+  serverError: ?string,
+  removeUser: (id: string) => UsersActionType,
   classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string, bigIcon: string, serverError: string},
   match: {params: {id: string}},
 };
@@ -105,6 +106,10 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
     } else {
       this.props.updateUser(this.state.userId, values);
     }
+  };
+
+  removeUser = () => {
+    this.props.removeUser(this.state.userId);
   };
 
   render() {
@@ -223,6 +228,13 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
                 <Button className={classes.button} raised color="accent" onClick={reset} disabled={submitting || pristine}>
                   Reset
                 </Button>
+                {
+                !this.state.isNew &&
+                <Button className={classes.button} raised color="accent" onClick={this.removeUser}
+                        disabled={submitting}>
+                  Delete
+                </Button>
+                }
               </form>
             </Paper>}} />
       }
@@ -242,6 +254,7 @@ const actionsMap = {
   getNewUser: getNewUser,
   createUser: createUser,
   cleanEditUserData: cleanEditUserData,
+  removeUser: removeUser,
 };
 
 

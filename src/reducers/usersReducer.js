@@ -35,6 +35,9 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
     case actions.ACTION_SAVE_USER_ERROR:
       return {...state, serverErrorMsg: action.error};
 
+    case actions.ACTION_USER_DELETED_ERROR:
+      return {...state, serverErrorMsg: action.error};
+
     case actions.ACTION_LOGOUT:
       return Object.assign({}, defaultState);
 

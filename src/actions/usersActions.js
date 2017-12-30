@@ -170,7 +170,7 @@ export function updateUser(id: string, values: User): ThunkAction {
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);
-        dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: error });
+        dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: "Network error." });
       });
   }
 }
@@ -224,7 +224,51 @@ export function createUser(values: User): ThunkAction {
       })
       .catch(function(error) {
         console.log('Fetch Error :-S', error);
-        dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: error });
+        dispatch({ type: actions.ACTION_SAVE_USER_ERROR, error: 'Network error.' });
+      });
+  }
+}
+
+export function removeUser(id: string): ThunkAction {
+
+  return (dispatch: Dispatch, getState) => {
+
+    let token = getState().auth.token;
+
+    if (!token) {
+      dispatch({type: actions.ACTION_LOGOUT});
+      dispatch(push('/login'));
+      return;
+    }
+
+    let request = new Request('http://localhost:3231/api/v1/users/' + id,
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          "x-access-token": token,
+        }),
+      });
+
+    fetch(request)
+      .then(response => {
+        let contentType = response.headers.get("content-type");
+        if(contentType && contentType.includes("application/json")) {
+          return response.json();
+        }
+        throw new TypeError("Oops, we haven't got JSON!");
+      })
+      .then((json: {status: string, msg?: string}) => {
+        console.log('json', json);
+        if (json.status === 'ok') {
+          dispatch({ type: actions.ACTION_USER_DELETED_SUCCESS});
+          dispatch(push('/users'));
+        } else {
+          dispatch({ type: actions.ACTION_USER_DELETED_ERROR, error: json.msg ? json.msg : 'Unknown error'});
+        }
+      })
+      .catch(function(error) {
+        console.log('Fetch Error :-S', error);
+        dispatch({ type: actions.ACTION_USER_DELETED_ERROR, error: 'Server error.'});
       });
   }
 }
