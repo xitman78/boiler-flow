@@ -2,22 +2,18 @@
 
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Drawer from 'material-ui/Drawer';
-import List from 'material-ui/List';
-import { ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
-import HomeIcon from 'material-ui-icons/Home';
-import AccountBox from 'material-ui-icons/AccountBox';
-import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 
-import type {StoreType} from '../../store/storeTypes';
+import  AuthMenu from './authMenu';
+import PublicMenu from './publicMenu';
 import {toggleDrawer} from "../../actions/UIActions";
+import type {StoreType} from '../../store/storeTypes';
 
 export const drawerWidth = 240;
 
@@ -56,6 +52,7 @@ class MiniDrawer extends React.Component<{
   classes: {[key: string]: string},
   theme: {},
   isDrawerOpen: boolean,
+  isAuthorized: boolean,
   toggleDrawer: () => any}, {open: boolean}> {
 
   render() {
@@ -76,22 +73,8 @@ class MiniDrawer extends React.Component<{
             </IconButton>
           </div>
           <Divider/>
-          <List className={classes.list}>
-            <ListItem button component={Link} to='/'>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText inset primary="Home" />
-            </ListItem>
-            <ListItem button component={Link} to='/users'>
-              <ListItemIcon>
-                <AccountBox />
-              </ListItemIcon>
-              <ListItemText inset primary="Users" />
-            </ListItem>
-          </List>
+          {this.props.isAuthorized ? <AuthMenu/> : <PublicMenu/>}
           <Divider/>
-         {/* <List className={classes.list}>Two</List>*/}
         </div>
       </Drawer>
     );
@@ -101,7 +84,8 @@ class MiniDrawer extends React.Component<{
 
 export default withStyles(styles, { withTheme: true })(
   connect((state: StoreType) => ({
-    isDrawerOpen: state.UI.isDrawerOpen
+    isDrawerOpen: state.UI.isDrawerOpen,
+    isAuthorized: !!state.auth.token,
   }), {
     toggleDrawer: toggleDrawer
   })(MiniDrawer)

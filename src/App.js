@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import type { Node } from 'react';
-import {Route, Router, Switch, Link} from 'react-router-dom';
+import {Route, Router} from 'react-router-dom';
 import 'typeface-roboto';
 import { withStyles } from 'material-ui/styles';
 import withRoot from './componets/hoc/withRoot';
@@ -13,7 +13,6 @@ import Home from './containers/home';
 import Users from './containers/users';
 import Login from './containers/login';
 import Logout from './containers/logout';
-import Menu from './componets/header/menu';
 import AppHeader from './componets/header/appHeader';
 import MiniDrawer from './componets/drawer/drawer';
 
