@@ -1,11 +1,15 @@
 // @flow
 
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-import {decrement, increment} from "../../actions/counterActions";
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
+import MinusIcon from 'material-ui-icons/Remove';
+import {createStructuredSelector} from 'reselect';
 
+import {decrement, increment} from "../../actions/counterActions";
 import type {SimpleActionType} from "../../actions/actionTypes";
-import type {CounterState} from "../../store/storeTypes";
+import type {CounterState, StoreType} from "../../store/storeTypes";
 
 type Props = {
   counter: CounterState,
@@ -13,29 +17,32 @@ type Props = {
   decrement: () => SimpleActionType,
 };
 
-class Counter extends Component<Props> {
-
-  onClick = (event: SyntheticEvent<HTMLButtonElement>) => {
-    this.props.increment();
-  };
+class Counter extends PureComponent<Props> {
 
   render() {
     return <div>
       {this.props.counter.a}
       <hr />
-      <button onClick={this.onClick}>PLUS</button><button onClick={this.props.decrement}>MINUS</button>
+      <Button fab mini color="primary" aria-label="add" onClick={this.props.increment}>
+        <AddIcon />
+      </Button>
+      <Button fab mini color="primary" aria-label="add" onClick={this.props.decrement}>
+        <MinusIcon />
+      </Button>
     </div>;
   }
 
 }
 
+const selector = createStructuredSelector({
+  counter: (state: StoreType) => state.counter,
+});
 
-export default connect(
-  state => ({
-    counter: state.counter
-  }),
-  {
-    increment: increment,
-    decrement: decrement,
-  })(Counter);
+const actionsMap = {
+  increment: increment,
+  decrement: decrement,
+};
+
+
+export default connect(selector, actionsMap)(Counter);
 

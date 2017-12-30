@@ -1,8 +1,7 @@
 // @flow
 
-import React, {Component, Fragment} from "react";
+import * as React from "react";
 import {connect} from "react-redux";
-// import {Link} from "react-router-dom";
 
 import { Form, Field } from 'react-final-form';
 import {getUser, updateUser, getNewUser, createUser} from "../../actions/usersActions";
@@ -12,11 +11,13 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Icon from 'material-ui/Icon';
+import {createStructuredSelector} from 'reselect';
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
 import type {UsersActionType} from "../../actions/actionTypes";
 import type {User} from '../../data-types/user';
+import type {StoreType} from '../../store/storeTypes';
 
 import './list.css';
 
@@ -71,7 +72,7 @@ type Props = {
   match: {params: {id: string}},
 };
 
-class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
+class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> {
 
   componentWillMount() {
     if (this.props.match.params.id === 'new') {
@@ -206,16 +207,19 @@ class UserEdit extends Component<Props, {userId: string, isNew: boolean}> {
 
 }
 
-export default connect(
-  state => ({
-    user: state.users.editUser
-  }),
-  {
-    getUser: getUser,
-    updateUser: updateUser,
-    getNewUser: getNewUser,
-    createUser: createUser,
-  })(withStyles(styles)(UserEdit));
+const selector = createStructuredSelector({
+  user: (state: StoreType) => state.users.editUser,
+});
+
+const actionsMap = {
+  getUser: getUser,
+  updateUser: updateUser,
+  getNewUser: getNewUser,
+  createUser: createUser,
+};
+
+
+export default connect(selector, actionsMap)(withStyles(styles)(UserEdit));
 
 
 

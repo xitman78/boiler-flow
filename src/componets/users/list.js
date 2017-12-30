@@ -7,11 +7,11 @@ import Table, { TableBody, TableCell, TableHead, TableRow, TableFooter,
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import {createStructuredSelector} from 'reselect';
 
 import {getUsers} from "../../actions/usersActions";
 
-import type {ActionType} from "../../actions/actionTypes";
-import type {UsersState, User} from "../../store/storeTypes";
+import type {StoreType, UsersState} from "../../store/storeTypes";
 
 import './list.css';
 
@@ -97,10 +97,12 @@ class UsersList extends Component<Props, {perPage: number, page: number}> {
 }
 
 
-export default connect(
-  state => ({
-    users: state.users
-  }),
-  {
-    getUsers: getUsers,
-  })(withStyles(styles)(UsersList));
+const selector = createStructuredSelector({
+  users: (state: StoreType) => state.users,
+  });
+
+const actionsMap = {
+  getUsers: getUsers,
+};
+
+export default connect(selector, actionsMap)(withStyles(styles)(UsersList));

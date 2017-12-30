@@ -28,4 +28,5 @@ export type StoreType = {
   users: UsersState,
   auth: AuthState,
   UI: DrawerState,
+  counter: CounterState,
 };

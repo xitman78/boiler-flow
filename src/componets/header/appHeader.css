@@ -1,0 +1,12 @@
+.app-header-flex {
+    flex: 1;
+}
+
+.app-header-menu-button {
+    margin-left: -18px;
+    margin-right: 36px;
+}
+
+.app-header-icon-hide {
+    display: none;
+}

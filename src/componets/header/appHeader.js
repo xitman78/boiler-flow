@@ -10,19 +10,15 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ExitToApp from 'material-ui-icons/ExitToApp';
 import classNames from 'classnames';
+import {createStructuredSelector} from 'reselect';
 
 import  {drawerWidth} from '../drawer/drawer';
 import {toggleDrawer} from "../../actions/UIActions";
 import type {StoreType} from '../../store/storeTypes';
 
+import './appHeader.css';
+
 const styles = theme => ({
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -18,
-    marginRight: 36,
-  },
   appBar: {
     position: 'absolute',
     zIndex: theme.zIndex.navDrawer + 1,
@@ -30,9 +26,6 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  },
-  hide: {
-    display: 'none',
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -44,23 +37,30 @@ const styles = theme => ({
   },
 });
 
-function ButtonAppBar(props: {classes: {[key: string]: string}, isDrawerOpen: boolean, toggleDrawer: () => any}) {
+type Props = {
+  classes: {[key: string]: string},
+  isDrawerOpen: boolean,
+  toggleDrawer: () => any,
+  isAuthorized: boolean
+};
+
+function ButtonAppBar(props: Props) {
   const { classes } = props;
   return (
     <AppBar className={classNames(classes.appBar, props.isDrawerOpen && classes.appBarShift)}>
       <Toolbar>
         <IconButton
-          className={classNames(classes.menuButton, props.isDrawerOpen && classes.hide)}
+          className={classNames("app-header-menu-button", props.isDrawerOpen && "app-header-icon-hide")}
           color="contrast"
           aria-label="Open menu"
           onClick={props.toggleDrawer}
         >
           <MenuIcon />
         </IconButton>
-        <Typography type="title" color="inherit" className={classes.flex}>
+        <Typography type="title" color="inherit" className="app-header-flex">
           CRM Pro
         </Typography>
-        {props.authUser ?
+        {props.isAuthorized ?
           <Button color="contrast" href={'/logout'}>Log out<ExitToApp /></Button>
           :
           <Button color="contrast" href={'/login'}>Sign In</Button>
@@ -70,12 +70,13 @@ function ButtonAppBar(props: {classes: {[key: string]: string}, isDrawerOpen: bo
   );
 }
 
+const selector = createStructuredSelector({
+  isAuthorized: (state: StoreType) => !!state.auth.token,
+  isDrawerOpen: (state: StoreType) => state.UI.isDrawerOpen,
+});
 
-export default connect(
-  (state: StoreType) => ({
-    authUser: state.auth.authUser,
-    isDrawerOpen: state.UI.isDrawerOpen,
-  }), {
-    toggleDrawer: toggleDrawer
-  })
-(withStyles(styles)(ButtonAppBar))
+const actionsMap = {
+  toggleDrawer: toggleDrawer
+};
+
+export default connect(selector, actionsMap)(withStyles(styles)(ButtonAppBar));

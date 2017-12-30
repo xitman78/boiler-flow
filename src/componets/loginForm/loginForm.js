@@ -102,11 +102,11 @@ class LoginForm extends PureComponent<Props> {
 
 }
 
-export default connect(
-  state => ({}),
-  {
-    loginRequest,
-  })(withStyles(styles)(LoginForm));
+const actionsMap = {
+  loginRequest
+};
+
+export default connect(null, actionsMap)(withStyles(styles)(LoginForm));
 
 
 

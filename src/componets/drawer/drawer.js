@@ -9,6 +9,7 @@ import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import {createStructuredSelector} from 'reselect';
 
 import  AuthMenu from './authMenu';
 import PublicMenu from './publicMenu';
@@ -82,11 +83,13 @@ class MiniDrawer extends React.Component<{
 
 }
 
-export default withStyles(styles, { withTheme: true })(
-  connect((state: StoreType) => ({
-    isDrawerOpen: state.UI.isDrawerOpen,
-    isAuthorized: !!state.auth.token,
-  }), {
-    toggleDrawer: toggleDrawer
-  })(MiniDrawer)
-);
+const selector = createStructuredSelector({
+  isDrawerOpen: (state: StoreType) => state.UI.isDrawerOpen,
+  isAuthorized: (state: StoreType) => !!state.auth.token,
+});
+
+const actionsMap = {
+  toggleDrawer: toggleDrawer
+};
+
+export default connect(selector, actionsMap)(withStyles(styles, { withTheme: true })(MiniDrawer));
