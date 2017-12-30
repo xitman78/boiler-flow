@@ -1,15 +1,14 @@
 // @flow
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-// import {Link} from "react-router-dom";
-
 import { Form, Field } from 'react-final-form';
-import {loginRequest} from "../../actions/authActions";
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Icon from 'material-ui/Icon';
+
+import {loginRequest} from "../../actions/authActions";
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 

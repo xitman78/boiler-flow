@@ -1,6 +1,6 @@
 // @flow
 
-import React, {PureComponent} from "react";
+import React from "react";
 import {connect} from 'react-redux';
 import {logoutAction} from "../actions/authActions";
 

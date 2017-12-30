@@ -3,6 +3,8 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {checkAuth} from "../../actions/authActions";
+import {createStructuredSelector} from 'reselect';
+import type {StoreType} from "../../store/storeTypes";
 
 
 export default function withCheckAuth(Component: React.ComponentType<any>): React.ComponentType<any> {
@@ -24,11 +26,14 @@ export default function withCheckAuth(Component: React.ComponentType<any>): Reac
     }
   }
 
-  return connect(state => ({
-      authChecked: state.auth.authChecked,
-    }),
-    {
-      checkAuth: checkAuth,
-    })(WithCheckAuth)
+  const selector = createStructuredSelector({
+    authChecked: (state: StoreType) => state.auth.authChecked,
+  });
+
+  const actionsMap = {
+    checkAuth: checkAuth,
+  };
+
+  return connect(selector, actionsMap)(WithCheckAuth);
 
 }

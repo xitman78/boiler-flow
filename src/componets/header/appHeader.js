@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ExitToApp from 'material-ui-icons/ExitToApp';
+import LoginToApp from 'material-ui-icons/Input';
 import classNames from 'classnames';
 import {createStructuredSelector} from 'reselect';
 
@@ -61,9 +62,9 @@ function ButtonAppBar(props: Props) {
           CRM Pro
         </Typography>
         {props.isAuthorized ?
-          <Button color="contrast" href={'/logout'}>Log out<ExitToApp /></Button>
+          <Button color="contrast" href={'/logout'}>Log out<ExitToApp/></Button>
           :
-          <Button color="contrast" href={'/login'}>Sign In</Button>
+          <Button color="contrast" href={'/login'}>Sign In<LoginToApp/></Button>
         }
       </Toolbar>
     </AppBar>

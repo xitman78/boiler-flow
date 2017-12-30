@@ -9,7 +9,7 @@ import actions from './actionConstants';
 type Dispatch = (action: UsersActionType) => any;
 type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-type PromiseAction = Promise<UsersActionType>;
+// type PromiseAction = Promise<UsersActionType>;
 
 export function getUsers(_page?: number, _itemsPerPage?: number): ThunkAction {
 

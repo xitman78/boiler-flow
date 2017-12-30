@@ -6,10 +6,10 @@ import actions from './actionConstants';
 import type {StoreType} from "../store/storeTypes";
 import type {User} from '../data-types/user';
 
-type Dispatch = (action: AuthActionType | ThunkAction | PromiseAction) => any;
+type Dispatch = (action: AuthActionType | ThunkAction ) => any;
 type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-type PromiseAction = Promise<AuthActionType>;
+// type PromiseAction = Promise<AuthActionType>;
 
 type ResponseType = {
   status: string,

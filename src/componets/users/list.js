@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow, TableFooter,
   TablePagination, } from 'material-ui/Table';
+import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
@@ -25,6 +26,10 @@ const styles = theme => ({
   table: {
     minWidth: 700,
   },
+  tableTitle: {
+    marginLeft: 20,
+    paddingTop: 20,
+  }
 });
 
 type Props = {
@@ -61,6 +66,7 @@ class UsersList extends Component<Props, {perPage: number, page: number}> {
           <Icon color="inherit" style={{ fontSize: 26 }}>person_add</Icon>
         </Button>
         <Paper className={this.props.classes.root}>
+          <Typography className={this.props.classes.tableTitle} type="title">User Accounts</Typography>
           <Table className={this.props.classes.table}>
             <TableHead>
               <TableRow>
