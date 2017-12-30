@@ -1,7 +1,7 @@
 // @flow
 import {push} from 'react-router-redux';
 
-import type {UsersActionType} from './actionTypes';
+import type {SimpleActionType, UsersActionType} from './actionTypes';
 import type {StoreType} from "../store/storeTypes";
 import type {User} from '../data-types/user';
 import actions from './actionConstants';
@@ -10,6 +10,12 @@ type Dispatch = (action: UsersActionType) => any;
 type GetState = () => StoreType;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 // type PromiseAction = Promise<UsersActionType>;
+
+export function cleanEditUserData(): SimpleActionType {
+  return {
+    type: actions.ACTION_CLEAN_EDIT_USED_DATA,
+  };
+}
 
 export function getUsers(_page?: number, _itemsPerPage?: number): ThunkAction {
 
@@ -199,7 +205,6 @@ export function createUser(values: User): ThunkAction {
         throw new TypeError("Oops, we haven't got JSON!");
       })
       .then((json: User | {status: string}) => {
-
         dispatch({ type: actions.ACTION_SAVE_USER_SUCCESS, editUser: json });
         dispatch(push('/users'));
       })

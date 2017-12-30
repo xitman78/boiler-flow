@@ -4,7 +4,6 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import { Form, Field } from 'react-final-form';
-import {getUser, updateUser, getNewUser, createUser} from "../../actions/usersActions";
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -13,10 +12,12 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import Person from 'material-ui-icons/Person';
 import PersonAdd from 'material-ui-icons/PersonAdd';
 import {createStructuredSelector} from 'reselect';
+
+import {getUser, updateUser, getNewUser, createUser, cleanEditUserData} from "../../actions/usersActions";
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
-import type {UsersActionType} from "../../actions/actionTypes";
+import type {SimpleActionType, UsersActionType} from "../../actions/actionTypes";
 import type {User} from '../../data-types/user';
 import type {StoreType} from '../../store/storeTypes';
 
@@ -73,6 +74,7 @@ type Props = {
   updateUser: (id: string, values: User) => UsersActionType,
   createUser: (values: User) => UsersActionType,
   getNewUser: () => UsersActionType,
+  cleanEditUserData: () => SimpleActionType,
   classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string, bigIcon: string},
   match: {params: {id: string}},
 };
@@ -87,6 +89,10 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
       this.setState({userId: this.props.match.params.id, isNew: false});
       this.props.getUser(this.props.match.params.id);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.cleanEditUserData();
   }
 
   onSubmit = values => {
@@ -224,6 +230,7 @@ const actionsMap = {
   updateUser: updateUser,
   getNewUser: getNewUser,
   createUser: createUser,
+  cleanEditUserData: cleanEditUserData,
 };
 
 

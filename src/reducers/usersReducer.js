@@ -28,6 +28,12 @@ export function users(state: UsersState = defaultState, action: UsersActionType)
     case actions.ACTION_NEW_USER_CREATED:
       return {...state, editUser: action.editUser};
 
+    case actions.ACTION_CLEAN_EDIT_USED_DATA:
+      return {...state, editUser: undefined};
+
+/*    case actions.ACTION_SAVE_USER_SUCCESS:
+      return {...state, editUser: undefined};*/
+
     case actions.ACTION_LOGOUT:
       return Object.assign({}, defaultState);
 
