@@ -22,13 +22,9 @@ import store, {history} from "./store/Store";
 
 const styles = theme => ({
   root: {
-   // textAlign: 'center',
-   // paddingTop: 200,
     width: '100%',
-  //  height: 430,
     marginTop: 0, //theme.spacing.unit * 1,
     zIndex: 1,
-  //  overflow: 'hidden',
   },
   appFrame: {
     position: 'relative',
@@ -57,7 +53,6 @@ let WithCheckAuth = (props: {classes: {[key: string]: string}}) => (
         <AppHeader />
         <MiniDrawer />
         <main className={props.classes.content}>
-          <Menu />
           <Route exact path="/" component={Home}/>
           <Route path="/users" component={Users}/>
           <Route path="/login" component={Login}/>

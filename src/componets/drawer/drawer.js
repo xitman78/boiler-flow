@@ -1,66 +1,27 @@
 // @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
 import List from 'material-ui/List';
 import { ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
-import SendIcon from 'material-ui-icons/Send';
+import HomeIcon from 'material-ui-icons/Home';
+import AccountBox from 'material-ui-icons/AccountBox';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
-// import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 import type {StoreType} from '../../store/storeTypes';
 import {toggleDrawer} from "../../actions/UIActions";
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-    height: 430,
-    marginTop: theme.spacing.unit * 3,
-    zIndex: 1,
-    overflow: 'hidden',
-  },
-  appFrame: {
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-  },
-  appBar: {
-    position: 'absolute',
-    zIndex: theme.zIndex.navDrawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
-  },
   drawerPaper: {
     position: 'relative',
     height: '100%',
@@ -116,15 +77,21 @@ class MiniDrawer extends React.Component<{
           </div>
           <Divider/>
           <List className={classes.list}>
-            <ListItem button>
+            <ListItem button component={Link} to='/'>
               <ListItemIcon>
-                <SendIcon />
+                <HomeIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Sent mail" />
+              <ListItemText inset primary="Home" />
+            </ListItem>
+            <ListItem button component={Link} to='/users'>
+              <ListItemIcon>
+                <AccountBox />
+              </ListItemIcon>
+              <ListItemText inset primary="Users" />
             </ListItem>
           </List>
           <Divider/>
-          <List className={classes.list}>Two</List>
+         {/* <List className={classes.list}>Two</List>*/}
         </div>
       </Drawer>
     );

@@ -8,17 +8,14 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import ExitToApp from 'material-ui-icons/ExitToApp';
 import classNames from 'classnames';
 
+import  {drawerWidth} from '../drawer/drawer';
 import {toggleDrawer} from "../../actions/UIActions";
 import type {StoreType} from '../../store/storeTypes';
 
-const drawerWidth = 240;
-
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
   flex: {
     flex: 1,
   },
@@ -64,9 +61,9 @@ function ButtonAppBar(props: {classes: {[key: string]: string}, isDrawerOpen: bo
           CRM Pro
         </Typography>
         {props.authUser ?
-          <Button color="contrast" href={'/logout'}>Logout</Button>
+          <Button color="contrast" href={'/logout'}>Log out<ExitToApp /></Button>
           :
-          <Button color="contrast" href={'/login'}>Login</Button>
+          <Button color="contrast" href={'/login'}>Sign In</Button>
         }
       </Toolbar>
     </AppBar>
