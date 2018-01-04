@@ -23,7 +23,7 @@ import type {StoreType} from '../../store/storeTypes';
 
 import './list.css';
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
@@ -64,6 +64,7 @@ const styles = theme => ({
   }
 });
 
+type StyleClasses = $Keys<$Call<typeof styles, {}>>
 
 const genders = [
   {value: 'm', label: 'Male'},
@@ -80,7 +81,7 @@ type Props = {
   cleanEditUserData: () => SimpleActionType,
   serverError: ?string,
   removeUser: (id: string) => UsersActionType,
-  classes: {root: string, container: string, textField: string, button: string, menu: string, passField: string, bigIcon: string, serverError: string},
+  classes: {[StyleClasses]: string},
   match: {params: {id: string}},
 };
 

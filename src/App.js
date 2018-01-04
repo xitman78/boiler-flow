@@ -19,7 +19,7 @@ import MiniDrawer from './componets/drawer/drawer';
 import './App.css';
 import store, {history} from "./store/Store";
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   root: {
     width: '100%',
     height: '100%',
@@ -46,7 +46,9 @@ const styles = theme => ({
   },
 });
 
-let WithCheckAuth = (props: {classes: {[key: string]: string}}) => (
+type StyleClasses = $Keys<$Call<typeof styles, {}>>
+
+let WithCheckAuth = (props: {classes: {[StyleClasses]: string}}) => (
   <Router history={history}>
     <div className={props.classes.root}>
       <div className={props.classes.appFrame}>
@@ -66,7 +68,7 @@ let WithCheckAuth = (props: {classes: {[key: string]: string}}) => (
 WithCheckAuth = withCheckAuth(WithCheckAuth);
 
 
-class App extends Component<{classes: {[key: string]: string}}> {
+class App extends Component<{classes: {[StyleClasses]: string}}> {
 
   render(): Node {
 

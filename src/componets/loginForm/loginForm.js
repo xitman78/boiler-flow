@@ -13,7 +13,7 @@ import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
@@ -41,10 +41,13 @@ const styles = theme => ({
   },
 });
 
+type StyleClasses = $Keys<$Call<typeof styles, {}>>
+
 type Props = {
   loginRequest: (email: string, password: string, captcha: string) => mixed,
-  classes: {root: string, container: string, textField: string, button: string, bigIcon: string},
+  classes: { [StyleClasses]: string },
 };
+
 
 class LoginForm extends PureComponent<Props> {
 
@@ -58,48 +61,47 @@ class LoginForm extends PureComponent<Props> {
 
     return <div className="users-list-container">
 
-      {<Form
-          onSubmit={this.onSubmit}
-          initialValues={{
-            username: '',
-            password: '',
-          }}
-          render={({ handleSubmit, reset, submitting, pristine, values }) => {
-            return <Paper className={classes.root} elevation={4}>
-              <InputIcon color="primary" className={this.props.classes.bigIcon}/>
-              <Typography type="headline" component="h3" color={'primary'}>
-                Sign-In
-              </Typography>
-              <form onSubmit={handleSubmit} className={classes.container}>
-                <div>
-                  <Field
-                    className={classes.textField}
-                    required
-                    validate={validateRequired}
-                    name="email"
-                    component={TextFieldAdapter}
-                    label="E-mail"
-                    margin="normal"
-                  />
-                </div>
-                <div>
-                  <Field
-                    className={classes.textField}
-                    required
-                    type="password"
-                    validate={validateRequired}
-                    name="password"
-                    component={TextFieldAdapter}
-                    label="Password"
-                    margin="normal"
-                  />
-                </div>
-                <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
-                  Login
-                </Button>
-              </form>
-            </Paper>}} />
-      }
+      <Form
+        onSubmit={this.onSubmit}
+        initialValues={{
+          username: '',
+          password: '',
+        }}
+        render={({ handleSubmit, reset, submitting, pristine, values }) => {
+          return <Paper className={classes.root} elevation={4}>
+            <InputIcon color="primary" className={this.props.classes.bigIcon}/>
+            <Typography type="headline" component="h3" color={'primary'}>
+              Sign-In
+            </Typography>
+            <form onSubmit={handleSubmit} className={classes.container}>
+              <div>
+                <Field
+                  className={classes.textField}
+                  required
+                  validate={validateRequired}
+                  name="email"
+                  component={TextFieldAdapter}
+                  label="E-mail"
+                  margin="normal"
+                />
+              </div>
+              <div>
+                <Field
+                  className={classes.textField}
+                  required
+                  type="password"
+                  validate={validateRequired}
+                  name="password"
+                  component={TextFieldAdapter}
+                  label="Password"
+                  margin="normal"
+                />
+              </div>
+              <Button className={classes.button} raised color="primary" type="submit" disabled={submitting || pristine}>
+                Login
+              </Button>
+            </form>
+          </Paper>}} />
       </div>;
   }
 
@@ -110,7 +112,3 @@ const actionsMap = {
 };
 
 export default connect(null, actionsMap)(withStyles(styles)(LoginForm));
-
-
-
-

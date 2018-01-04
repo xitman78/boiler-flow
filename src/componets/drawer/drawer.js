@@ -18,7 +18,7 @@ import type {StoreType} from '../../store/storeTypes';
 
 export const drawerWidth = 240;
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   drawerPaper: {
     position: 'relative',
     height: '100%',
@@ -49,8 +49,10 @@ const styles = theme => ({
   },
 });
 
+type StyleClasses = $Keys<$Call<typeof styles, {}>>
+
 class MiniDrawer extends React.Component<{
-  classes: {[key: string]: string},
+  classes: {[StyleClasses]: string},
   theme: {},
   isDrawerOpen: boolean,
   isAuthorized: boolean,

@@ -19,7 +19,7 @@ import type {StoreType} from '../../store/storeTypes';
 
 import './appHeader.css';
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   appBar: {
     position: 'absolute',
     zIndex: theme.zIndex.navDrawer + 1,
@@ -38,8 +38,10 @@ const styles = theme => ({
   },
 });
 
+type StyleClasses = $Keys<$Call<typeof styles, {}>>
+
 type Props = {
-  classes: {[key: string]: string},
+  classes: {[StyleClasses]: string},
   isDrawerOpen: boolean,
   toggleDrawer: () => any,
   isAuthorized: boolean
