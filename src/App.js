@@ -8,7 +8,6 @@ import 'typeface-roboto';
 import { withStyles } from 'material-ui/styles';
 import withRoot from './componets/hoc/withRoot';
 import withCheckAuth from './componets/hoc/withCheckAuth';
-
 import Home from './containers/home';
 import Users from './containers/users';
 import Login from './containers/login';
@@ -22,7 +21,9 @@ import store, {history} from "./store/Store";
 const styles = (theme: Object) => ({
   root: {
     width: '100%',
-    height: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
     marginTop: 0, //theme.spacing.unit * 1,
     zIndex: 1,
   },
@@ -31,6 +32,7 @@ const styles = (theme: Object) => ({
     display: 'flex',
     width: '100%',
     height: '100%',
+    flex: 1,
   },
   content: {
     width: '100%',
@@ -44,6 +46,13 @@ const styles = (theme: Object) => ({
       marginTop: 64,
     },
   },
+  footer: {
+    height: 160,
+    width: '100%',
+    backgroundColor: theme.palette.primary[700],
+    padding: 20,
+    color: theme.palette.grey[400],
+  }
 });
 
 type StyleClasses = $Keys<$Call<typeof styles, {}>>
@@ -60,6 +69,9 @@ let WithCheckAuth = (props: {classes: {[StyleClasses]: string}}) => (
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
         </main>
+      </div>
+      <div className={props.classes.footer}>
+      &copy; Alexander Cherepnya, 2018
       </div>
     </div>
   </Router>

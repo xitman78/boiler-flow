@@ -27,6 +27,7 @@ const styles = (theme: Object) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    backgroundColor: theme.palette.primary[100],
   },
   drawerPaperClose: {
     width: 60,
