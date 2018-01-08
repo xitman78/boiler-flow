@@ -24,3 +24,14 @@ export type AuthActionType = {
   +token?: ?string,
   +error?: any
 };
+
+export type ShowAlertActionType = {|
+  +type: actions.ACTION_SHOW_MODAL_ALERT,
+  +message: string,
+|};
+
+export type HideAlertActionType = {|
+  +type: actions.ACTION_HIDE_MODAL_ALERT,
+|};
+
+export type ModalActionType = ShowAlertActionType | HideAlertActionType;

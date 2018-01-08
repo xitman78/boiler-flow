@@ -25,9 +25,17 @@ export type DrawerState = {
   isDrawerOpen: boolean,
 };
 
+export type ModalsState = {
+  show: boolean,
+  modalType?: 'ALERT' | 'CONFIRM',
+  modalResult?: string,
+  modalMessage?: string,
+};
+
 export type StoreType = {
   users: UsersState,
   auth: AuthState,
   UI: DrawerState,
   counter: CounterState,
+  modals: ModalsState,
 };

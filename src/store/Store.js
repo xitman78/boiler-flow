@@ -9,6 +9,7 @@ import {counter} from '../reducers/counterReducer';
 import {users} from '../reducers/usersReducer';
 import {auth} from '../reducers/authReducer';
 import {UI} from '../reducers/UIReducer';
+import {modals} from '../reducers/modalReducer';
 
 export const history = createHistory();
 
@@ -24,6 +25,7 @@ const combinedReducers = combineReducers({
   users,
   auth,
   UI,
+  modals,
   router: routerReducer
 }, applyMiddleware(middleware));
 

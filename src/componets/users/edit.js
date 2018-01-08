@@ -14,10 +14,11 @@ import PersonAdd from 'material-ui-icons/PersonAdd';
 import {createStructuredSelector} from 'reselect';
 
 import {getUser, updateUser, getNewUser, createUser, cleanEditUserData, removeUser} from "../../actions/usersActions";
+import {showAlert} from '../../actions/modalsActions';
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
-import type {SimpleActionType, UsersActionType} from "../../actions/actionTypes";
+import type {SimpleActionType, UsersActionType, ShowAlertActionType} from "../../actions/actionTypes";
 import type {User} from '../../data-types/user';
 import type {StoreType} from '../../store/storeTypes';
 
@@ -110,7 +111,8 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
   };
 
   removeUser = () => {
-    this.props.removeUser(this.state.userId);
+    //this.props.removeUser(this.state.userId);
+    this.props.showAlert('Hello there');
   };
 
   render() {
@@ -256,6 +258,7 @@ const actionsMap = {
   createUser: createUser,
   cleanEditUserData: cleanEditUserData,
   removeUser: removeUser,
+  showAlert: showAlert,
 };
 
 

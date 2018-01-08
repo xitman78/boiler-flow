@@ -14,6 +14,7 @@ import Login from './containers/login';
 import Logout from './containers/logout';
 import AppHeader from './componets/header/appHeader';
 import MiniDrawer from './componets/drawer/drawer';
+import ModalRoot from './componets/modal/modalRoot';
 
 import './App.css';
 import store, {history} from "./store/Store";
@@ -61,6 +62,7 @@ let WithCheckAuth = (props: {classes: {[StyleClasses]: string}}) => (
   <Router history={history}>
     <div className={props.classes.root}>
       <div className={props.classes.appFrame}>
+        <ModalRoot />
         <AppHeader />
         <MiniDrawer />
         <main className={props.classes.content}>
@@ -70,9 +72,9 @@ let WithCheckAuth = (props: {classes: {[StyleClasses]: string}}) => (
           <Route path="/logout" component={Logout}/>
         </main>
       </div>
-      <div className={props.classes.footer}>
+      <footer className={props.classes.footer}>
       &copy; Alexander Cherepnya, 2018
-      </div>
+      </footer>
     </div>
   </Router>
 );
