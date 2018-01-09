@@ -84,6 +84,7 @@ type Props = {
   removeUser: (id: string) => UsersActionType,
   classes: {[StyleClasses]: string},
   match: {params: {id: string}},
+  showAlert: (msg: string, title?: string) => void,
 };
 
 class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> {
@@ -111,8 +112,7 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
   };
 
   removeUser = () => {
-    //this.props.removeUser(this.state.userId);
-    this.props.showAlert('Hello there');
+    this.props.showAlert('Hello there', 'Warning');
   };
 
   render() {

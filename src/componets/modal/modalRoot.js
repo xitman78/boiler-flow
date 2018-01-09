@@ -44,43 +44,38 @@ type Props = {
   hideAlert: () => void
 };
 
-class ModalRoot extends React.Component<Props> {
-  // state = {
-  //   open: false,
-  // };
+class ModalRoot extends React.PureComponent<Props> {
 
-  handleOpen = () => {
-   // this.setState({ open: true });
-  };
+  handleClose: () => void;
 
-  handleClose = () => {
-   // this.setState({ open: false });
+  constructor() {
+    super();
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
    this.props.hideAlert();
-  };
+  }
 
   render() {
 
     return (
-      <div style={{backgroundColor: '#FF0000'}}>
+      <div>
         <Dialog
           open={this.props.modals.show}
           onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby={this.props.modals.modalTitle ? this.props.modals.modalTitle : ''}
+          aria-describedby={this.props.modals.modalMessage}
         >
-          <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          {this.props.modals.modalTitle && <DialogTitle id="alert-dialog-title">{this.props.modals.modalTitle}</DialogTitle>}
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+              {this.props.modals.modalMessage}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Disagree
-            </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+              Ok
             </Button>
           </DialogActions>
         </Dialog>

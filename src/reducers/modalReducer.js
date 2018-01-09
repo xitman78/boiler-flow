@@ -15,7 +15,7 @@ export function modals(state: ModalsState = defaultState, action: ModalActionTyp
   switch(action.type) {
 
     case actions.ACTION_SHOW_MODAL_ALERT:
-      return {show: true, modalType: 'ALERT', modalMessage: action.message};
+      return {show: true, modalType: 'ALERT', modalMessage: action.message, modalTitle: action.title};
 
     case actions.ACTION_HIDE_MODAL_ALERT:
       return {show: false};

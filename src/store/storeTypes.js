@@ -30,6 +30,7 @@ export type ModalsState = {
   modalType?: 'ALERT' | 'CONFIRM',
   modalResult?: string,
   modalMessage?: string,
+  modalTitle?: string,
 };
 
 export type StoreType = {

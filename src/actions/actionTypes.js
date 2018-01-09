@@ -1,5 +1,6 @@
 // @flow
 
+import actions from './actionConstants';
 import type {User} from '../data-types/user';
 
 
@@ -28,6 +29,7 @@ export type AuthActionType = {
 export type ShowAlertActionType = {|
   +type: actions.ACTION_SHOW_MODAL_ALERT,
   +message: string,
+  +title?: string,
 |};
 
 export type HideAlertActionType = {|
