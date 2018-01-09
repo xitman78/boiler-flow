@@ -8,29 +8,30 @@ import {connect} from 'react-redux';
 import {hideModal} from '../../actions/modalsActions';
 import type {ModalsState} from '../../sore/storeTypes';
 
-type Props = {
-  ...ModalsState,
-  hideModal: () => void
-};
+class ConfirmModal extends React.PureComponent<ModalsState> {
 
-class AlertModal extends React.PureComponent {
-
-  handleClose: () => void;
+  handleConfirm: () => void;
+  handleReject: () => void;
 
   constructor() {
     super();
-    this.handleClose = this.handleClose.bind(this);
+    this.handleConfirm = this.handleConfirm.bind(this);
+    this.handleReject = this.handleReject.bind(this);
   }
 
-  handleClose() {
-   this.props.hideModal();
+  handleConfirm() {
+    if (this.props.callback) this.props.callback('confirm');
+  }
+
+  handleReject() {
+    if (this.props.callback) this.props.callback('reject');
   }
 
   render() {
     return (
       <Dialog
         open={this.props.show}
-        onClose={this.handleClose}
+        onClose={this.handleReject}
         aria-labelledby={this.props.modalTitle ? this.props.modalTitle : ''}
         aria-describedby={this.props.modalMessage}
       >
@@ -41,8 +42,11 @@ class AlertModal extends React.PureComponent {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
-            Ok
+        <Button onClick={this.handleReject} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.handleConfirm} color="primary">
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
@@ -50,4 +54,4 @@ class AlertModal extends React.PureComponent {
   }
 }
 
-export default connect(null, {hideModal})(AlertModal);
+export default ConfirmModal;

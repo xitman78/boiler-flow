@@ -17,7 +17,18 @@ export function modals(state: ModalsState = defaultState, action: ModalActionTyp
     case actions.ACTION_SHOW_MODAL_ALERT:
       return {show: true, modalType: 'ALERT', modalMessage: action.message, modalTitle: action.title};
 
-    case actions.ACTION_HIDE_MODAL_ALERT:
+    case actions.ACTION_SHOW_MODAL_CONFIRM:
+      return {
+        show: true,
+        modalType: 'CONFIRM',
+        modalMessage: action.message,
+        modalTitle: action.title,
+        confirmText: action.confirmText,
+        rejectText: action.rejectText,
+        callback: action.callback,
+      };
+
+    case actions.ACTION_HIDE_MODAL:
       return {show: false};
 
     default:

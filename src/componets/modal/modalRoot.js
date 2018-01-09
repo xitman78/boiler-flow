@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
 import AlertModal from './alert';
+import ConfirmModal from './confirm';
 import type {ModalsState} from '../../store/storeTypes';
 
 type Props = {
@@ -19,12 +20,13 @@ const ModalRoot = ({modals}) => {
     case 'ALERT':
       return <AlertModal {...modals} />
     case 'CONFIRM':
-      return null;
+      return <ConfirmModal {...modals} />
   }
   return null;
 }
 
 const selector = createStructuredSelector({
+  show: state => state.modals.show,
   modals: state => state.modals,
 });
 

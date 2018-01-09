@@ -32,8 +32,17 @@ export type ShowAlertActionType = {|
   +title?: string,
 |};
 
-export type HideAlertActionType = {|
+export type ShowConfirmActionType = {|
+  +type: actions.ACTION_SHOW_MODAL_CONFIRM,
+  +message: string,
+  +title?: string,
+  +confirmText?: string,
+  +rejectText?: string,
+  +callback?: (result: string) => void,
+|};
+
+export type HideModalActionType = {|
   +type: actions.ACTION_HIDE_MODAL_ALERT,
 |};
 
-export type ModalActionType = ShowAlertActionType | HideAlertActionType;
+export type ModalActionType = ShowAlertActionType | ShowConfirmActionType | HideModalActionType;

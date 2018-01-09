@@ -31,6 +31,9 @@ export type ModalsState = {
   modalResult?: string,
   modalMessage?: string,
   modalTitle?: string,
+  confirmText?: string,
+  rejectText?: string,
+  callback?: (string) => void,
 };
 
 export type StoreType = {

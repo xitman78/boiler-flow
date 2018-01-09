@@ -14,7 +14,7 @@ import PersonAdd from 'material-ui-icons/PersonAdd';
 import {createStructuredSelector} from 'reselect';
 
 import {getUser, updateUser, getNewUser, createUser, cleanEditUserData, removeUser} from "../../actions/usersActions";
-import {showAlert} from '../../actions/modalsActions';
+import {showConfirm} from '../../actions/modalsActions';
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
@@ -84,7 +84,7 @@ type Props = {
   removeUser: (id: string) => UsersActionType,
   classes: {[StyleClasses]: string},
   match: {params: {id: string}},
-  showAlert: (msg: string, title?: string) => void,
+  showConfirm: (msg: string, title?: string, ?string, ?string, ?Function) => Promise,
 };
 
 class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> {
@@ -112,7 +112,9 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
   };
 
   removeUser = () => {
-    this.props.showAlert('Hello there', 'Warning');
+    this.props.showConfirm('Are you sure?', 'Warning', 'Yes', 'No').then(res => {
+      console.log('Confirm resolve', res);
+    });
   };
 
   render() {
@@ -258,7 +260,7 @@ const actionsMap = {
   createUser: createUser,
   cleanEditUserData: cleanEditUserData,
   removeUser: removeUser,
-  showAlert: showAlert,
+  showConfirm: showConfirm,
 };
 
 
