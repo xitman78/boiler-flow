@@ -43,10 +43,10 @@ class ConfirmModal extends React.PureComponent<ModalsState> {
         </DialogContent>
         <DialogActions>
         <Button onClick={this.handleReject} color="primary">
-            Cancel
+            {this.props.rejectText ? this.props.rejectText : 'Cancel'}
           </Button>
           <Button onClick={this.handleConfirm} color="primary">
-            Confirm
+            {this.props.confirmText ? this.props.confirmText : 'Confirm'}
           </Button>
         </DialogActions>
       </Dialog>

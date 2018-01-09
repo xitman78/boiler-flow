@@ -119,8 +119,6 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
 
   render() {
 
-    console.log('User render', this.props.user);
-
     const { classes } = this.props;
 
     return <div className="users-list-container">
