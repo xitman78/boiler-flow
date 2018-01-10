@@ -32,6 +32,7 @@ export function modals(state: ModalsState = defaultState, action: ModalActionTyp
       return {show: false};
 
     default:
+      (action: empty);
       return state;
 
   }

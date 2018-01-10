@@ -84,7 +84,7 @@ type Props = {
   removeUser: (id: string) => UsersActionType,
   classes: {[StyleClasses]: string},
   match: {params: {id: string}},
-  showConfirm: (msg: string, title?: string, ?string, ?string, ?Function) => Promise,
+  showConfirm: (msg: string, title?: string, ?string, ?string, ?Function) => Promise<void>,
   showAlert: (msg: string, title?: string) => void,
 };
 

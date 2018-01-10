@@ -3,6 +3,8 @@
 import actions from './actionConstants';
 import type {User} from '../data-types/user';
 
+import type {TYPE_SHOW_MODAL_ALERT, TYPE_SHOW_MODAL_CONFIRM, TYPE_HIDE_MODAL} from './actionConstants';
+
 
 export type SimpleActionType = {
   +type: string,
@@ -27,13 +29,13 @@ export type AuthActionType = {
 };
 
 export type ShowAlertActionType = {|
-  +type: actions.ACTION_SHOW_MODAL_ALERT,
+  +type: TYPE_SHOW_MODAL_ALERT,
   +message: string,
   +title?: string,
 |};
 
 export type ShowConfirmActionType = {|
-  +type: actions.ACTION_SHOW_MODAL_CONFIRM,
+  +type: TYPE_SHOW_MODAL_CONFIRM,
   +message: string,
   +title?: string,
   +confirmText?: string,
@@ -42,7 +44,7 @@ export type ShowConfirmActionType = {|
 |};
 
 export type HideModalActionType = {|
-  +type: actions.ACTION_HIDE_MODAL_ALERT,
+  +type: TYPE_HIDE_MODAL,
 |};
 
 export type ModalActionType = ShowAlertActionType | ShowConfirmActionType | HideModalActionType;
