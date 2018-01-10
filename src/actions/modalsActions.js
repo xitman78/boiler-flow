@@ -13,7 +13,8 @@ export function showConfirm(msg: string, title?: string, confirmText?: string, r
         type: actions.ACTION_SHOW_MODAL_CONFIRM,
         message: msg, title: title, confirmText: confirmText, rejectText: rejectText,
         callback: function(result: string) {
-          resolve(result);
+          if (result === 'confirm') resolve();
+          else reject();
           dispatch({type: actions.ACTION_HIDE_MODAL});
         }
       });

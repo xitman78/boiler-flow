@@ -4,13 +4,17 @@ import Typography from 'material-ui/Typography';
 import Dialog, {DialogActions, DialogContent, DialogContentText, DialogTitle} from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import {connect} from 'react-redux';
+import {withStyles} from 'material-ui/styles';
 
+import styles from './modal.style';
+import type {ClassesType} from './modal.style';
 import {hideModal} from '../../actions/modalsActions';
 import type {ModalsState} from '../../sore/storeTypes';
 
 type Props = {
   ...ModalsState,
-  hideModal: () => void
+  classes: ClassesType,
+  hideModal: () => void,
 };
 
 class AlertModal extends React.PureComponent {
@@ -35,7 +39,7 @@ class AlertModal extends React.PureComponent {
         aria-describedby={this.props.modalMessage}
       >
         {this.props.modalTitle && <DialogTitle id="alert-dialog-title">{this.props.modalTitle}</DialogTitle>}
-        <DialogContent>
+        <DialogContent className={this.props.classes.modalContainer}>
           <DialogContentText id="alert-dialog-description">
             {this.props.modalMessage}
           </DialogContentText>
@@ -50,4 +54,4 @@ class AlertModal extends React.PureComponent {
   }
 }
 
-export default connect(null, {hideModal})(AlertModal);
+export default connect(null, {hideModal})(withStyles(styles)(AlertModal));

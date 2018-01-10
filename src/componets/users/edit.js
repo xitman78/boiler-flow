@@ -14,7 +14,7 @@ import PersonAdd from 'material-ui-icons/PersonAdd';
 import {createStructuredSelector} from 'reselect';
 
 import {getUser, updateUser, getNewUser, createUser, cleanEditUserData, removeUser} from "../../actions/usersActions";
-import {showConfirm} from '../../actions/modalsActions';
+import {showConfirm, showAlert} from '../../actions/modalsActions';
 import TextFieldAdapter from '../form/textFieldAdapter';
 import {validateRequired} from '../../helpers/validators';
 
@@ -85,6 +85,7 @@ type Props = {
   classes: {[StyleClasses]: string},
   match: {params: {id: string}},
   showConfirm: (msg: string, title?: string, ?string, ?string, ?Function) => Promise,
+  showAlert: (msg: string, title?: string) => void,
 };
 
 class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> {
@@ -112,8 +113,10 @@ class UserEdit extends React.Component<Props, {userId: string, isNew: boolean}> 
   };
 
   removeUser = () => {
-    this.props.showConfirm('Are you sure?', 'Warning', 'Yes', 'No').then(res => {
-      console.log('Confirm resolve', res);
+    this.props.showConfirm('Are you sure?', 'Warning', 'Yes', 'No').then(() => {
+      this.props.removeUser(this.props.match.params.id);
+    }, () => {
+      console.log('Rejectred');
     });
   };
 
@@ -259,6 +262,7 @@ const actionsMap = {
   cleanEditUserData: cleanEditUserData,
   removeUser: removeUser,
   showConfirm: showConfirm,
+  showAlert: showAlert
 };
 
 
