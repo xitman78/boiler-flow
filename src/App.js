@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import type { Node } from 'react';
-import {Route, Router} from 'react-router-dom';
+import {Route, Router, Switch} from 'react-router-dom';
 import 'typeface-roboto';
 import { withStyles } from 'material-ui/styles';
 import withRoot from './componets/hoc/withRoot';
@@ -15,6 +15,7 @@ import Logout from './containers/logout';
 import AppHeader from './componets/header/appHeader';
 import MiniDrawer from './componets/drawer/drawer';
 import ModalRoot from './componets/modal/modalRoot';
+import Miss from './componets/miss/miss';
 
 import './App.css';
 import store, {history} from "./store/Store";
@@ -66,10 +67,13 @@ let WithCheckAuth = (props: {classes: {[StyleClasses]: string}}) => (
         <AppHeader />
         <MiniDrawer />
         <main className={props.classes.content}>
-          <Route exact path="/" component={Home}/>
-          <Route path="/users" component={Users}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/logout" component={Logout}/>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/users" component={Users}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/logout" component={Logout}/>
+            <Route component={Miss} />
+          </Switch>
         </main>
       </div>
       <footer className={props.classes.footer}>
